@@ -37,9 +37,9 @@ A estrutura do projeto é organizada da seguinte forma:
 
 
 - src/
-  - Blog.Web/ - Projeto MVC
-  - Blog.Api/ - API RESTful
-  - Blog.Data/ - Modelos de Dados e Configuração do EF Core
+  - Devgram.Web/ - Projeto MVC
+  - Devgram.Api/ - API RESTful
+  - Devgram.Infra/ - Modelos de Dados e Configuração do EF Core
 - README.md - Arquivo de Documentação do Projeto
 - FEEDBACK.md - Arquivo para Consolidação dos Feedbacks
 - .gitignore - Arquivo de Ignoração do Git
@@ -63,20 +63,20 @@ A estrutura do projeto é organizada da seguinte forma:
 ### **Passos para Execução**
 
 1. **Clone o Repositório:**
-   - `git clone https://github.com/seu-usuario/nome-do-repositorio.git`
-   - `cd nome-do-repositorio`
+   - `git clone https://github.com/jairobionez/devgram.git`
+   - `cd devgram`
 
 2. **Configuração do Banco de Dados:**
    - No arquivo `appsettings.json`, configure a string de conexão do SQL Server.
    - Rode o projeto para que a configuração do Seed crie o banco e popule com os dados básicos
 
 3. **Executar a Aplicação MVC:**
-   - `cd src/Blog.Mvc/`
+   - `cd src/Devgram.Web/`
    - `dotnet run`
    - Acesse a aplicação em: http://localhost:5000
 
 4. **Executar a API:**
-   - `cd src/Blog.Api/`
+   - `cd src/Devgram.Api/`
    - `dotnet run`
    - Acesse a documentação da API em: http://localhost:5001/swagger
 

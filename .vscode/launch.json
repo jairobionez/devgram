@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C#: Devgram.Web [Default Configuration]",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/src/Devgram.Web/Devgram.Web.csproj"
+        },
+        {
+            "name": "C#: Devgram.Api [Default Configuration]",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/src/Devgram.Api/Devgram.Api.csproj"
+        },
+    ]
+}
