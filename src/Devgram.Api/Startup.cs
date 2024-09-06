@@ -1,5 +1,7 @@
 using Devgram.Api.Configuration;
 using Devgram.Api.Interfaces;
+using Devgram.Auh.Configuration;
+using Devgram.Web.Configuration;
 
 namespace Devgram.Api
 {

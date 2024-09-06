@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Devgram.Auh.Configuration;
+using Devgram.Web.Configuration;
 using Devgram.Web.Interfaces;
 
 namespace Devgram.Web
@@ -30,26 +32,13 @@ namespace Devgram.Web
         {
             var conn = Environment.GetEnvironmentVariable("DB_CONN") ?? Configuration.GetConnectionString("DefaultConnection");
             services.AddControllersWithViews();
+            services.AddWebConfig(Configuration);
+            services.AddIdentityConfig(Configuration);
         }
 
         public void Configure(WebApplication app, IWebHostEnvironment env)
         {
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.UseWebConfig(env);
         }
     }
 
