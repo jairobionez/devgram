@@ -1,4 +1,5 @@
 using Devgram.Infra.Context;
+using Devgram.Auth.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;

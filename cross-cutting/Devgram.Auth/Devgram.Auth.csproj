@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Devgram.Infra\Devgram.Infra.csproj" />
+    <ProjectReference Include="..\Devgram.Infra\Devgram.Infra.csproj" />
   </ItemGroup>
 
 </Project>

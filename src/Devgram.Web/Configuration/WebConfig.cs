@@ -1,4 +1,4 @@
-﻿using Devgram.Auh.Configuration;
+﻿using Devgram.Auth.Configuration;
 using Devgram.Infra.Context;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Localization;

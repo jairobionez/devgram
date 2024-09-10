@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Devgram.Auh.Configuration
+namespace Devgram.Auth.Configuration
 {
     public static class IdentityConfig
     {
