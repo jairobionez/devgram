@@ -31,7 +31,7 @@ namespace Devgram.Infra.Entities
         public string? Numero { get; private set; }
 
         public virtual ICollection<Publicacao> Publicacoes { get; private set; }
-        public virtual ICollection<Comentario> Comentarios { get; private set; }
+        public virtual ICollection<PublicacaoComentario> Comentarios { get; private set; }
 
         public void Atualizar(Usuario usuario)
         {

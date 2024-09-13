@@ -15,7 +15,7 @@
 
         public string? Descricao { get; private set; }
         public virtual ICollection<PublicacaoAnexo>? Anexos { get; private set; }
-        public virtual ICollection<Comentario>? Comentarios { get; private set; }
+        public virtual ICollection<PublicacaoComentario>? Comentarios { get; private set; }
 
         public Guid UsuarioId { get; private set; }
         public virtual Usuario Usuario { get; private set; }

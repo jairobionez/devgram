@@ -1,8 +1,9 @@
-using Devgram.Infra.Context;
+using Devgram.Infra;
 using Devgram.Auth.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using DbContext = Devgram.Infra.DbContext;
 
 namespace Devgram.Api.Configuration
 {
@@ -15,9 +16,9 @@ namespace Devgram.Api.Configuration
                 options.MaxModelBindingCollectionSize = int.MaxValue;
             });
 
-            var conn = Environment.GetEnvironmentVariable("DB_CONN") ?? configuration.GetConnectionString("DefaultConnection");
-
-            services.AddDbContext<Context>(options => options.UseSqlServer(conn));
+            // var conn = Environment.GetEnvironmentVariable("DB_CONN") ?? configuration.GetConnectionString("DefaultConnection");
+            var conn = configuration["DB_CONN"];
+            services.AddDbContext<DbContext>(options => options.UseSqlServer(conn));
 
             services.AddControllers()
                     .AddNewtonsoftJson(options =>

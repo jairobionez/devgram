@@ -26,7 +26,6 @@ namespace Devgram.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var conn = Environment.GetEnvironmentVariable("DB_CONN") ?? Configuration.GetConnectionString("DefaultConnection");
             services.AddControllersWithViews();
             services.AddWebConfig(Configuration);
             services.AddIdentityConfig(Configuration);

@@ -15,6 +15,8 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        if (this.User?.Identity?.IsAuthenticated == false)
+            return RedirectToAction("Index", "Auth");
         return View();
     }
 

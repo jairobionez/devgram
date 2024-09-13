@@ -1,5 +1,5 @@
 ﻿using Devgram.Auth.Configuration;
-using Devgram.Infra.Context;
+using Devgram.Infra;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Globalization;
 using System.Text.Json;
+using DbContext = Devgram.Infra.DbContext;
 
 namespace Devgram.Web.Configuration
 {
@@ -26,12 +27,13 @@ namespace Devgram.Web.Configuration
 
             services.AddSession();
 
-            var conn = configuration["DB_CONN"] ?? configuration.GetConnectionString("DefaultConnection");
+            // var conn = configuration["DB_CONN"] ?? configuration.GetConnectionString("DefaultConnection");
 
-            services.AddDbContext<Context>(options =>
+            var conn = configuration["DB_CONN"];
+
+            services.AddDbContext<DbContext>(options =>
             {
                 options.UseSqlServer(conn);
-          
             });
 
             services.AddControllersWithViews()

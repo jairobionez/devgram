@@ -1,0 +1,133 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Remove default padding */
+ul[class],
+ol[class] {
+    padding: 0;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+figure,
+blockquote,
+dl,
+dd {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Set core body defaults */
+body,html {
+    margin: 0;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+}
+
+/* Remove list styles on ul, ol elements with a class attribute */
+ul[class],
+ol[class] {
+    list-style: none;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* Natural flow and rhythm in articles by default */
+article > * + * {
+    margin-top: 0;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+input:focus-visible {
+    outline-offset: none !important;
+}
+
+ul {
+    padding-inline-start: 0;
+}
+
+hr {
+    display: block;
+    unicode-bidi: isolate;
+    overflow: hidden;
+    border-style: inset;
+    border-width: 1px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+ul {
+    list-style-type: none;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    line-height: 1;
+    font-weight: unset;
+}
+
+textarea {
+    resize: none;
+    outline: none;
+}
+
+
+a {
+    color: unset;
+}
+
+button,
+select,
+a,
+.btn,
+.btn-outline {
+    cursor: pointer;
+}
+
+strong, b {
+    font-weight: unset;
+}
+
+.efeito-parallax {
+    background-color: #fff;
+    z-index: 1;
+    position: relative;
+}
+

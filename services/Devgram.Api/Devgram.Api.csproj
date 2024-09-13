@@ -1,11 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <InvariantGlobalization>true</InvariantGlobalization>
+    <InvariantGlobalization>false</InvariantGlobalization>
     <RootNamespace>Devgram.Api</RootNamespace>
+    <UserSecretsId>300a86ad-8a51-4dfb-9637-db158a006f22</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +24,22 @@
   <ItemGroup>
     <ProjectReference Include="..\..\cross-cutting\Devgram.Auth\Devgram.Auth.csproj" />
     <ProjectReference Include="..\..\cross-cutting\Devgram.ViewModel\Devgram.ViewModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="ConfigModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="ConfigModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="ConfigModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ConfigModels\**" />
   </ItemGroup>
 
 </Project>

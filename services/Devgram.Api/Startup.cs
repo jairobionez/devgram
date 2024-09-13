@@ -55,7 +55,6 @@ namespace Devgram.Api
 
             if (startup == null) throw new("Classe startup.cs inválida");
 
-
             startup.ConfigureServices(webApplicationBuilder.Services);
 
             var app = webApplicationBuilder.Build();
