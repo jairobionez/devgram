@@ -57,6 +57,10 @@
     <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\LICENSE" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\login\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>

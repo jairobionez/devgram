@@ -1,9 +1,11 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Devgram.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Devgram.Web.Controllers;
 
+[Route("home"), Authorize]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -15,19 +17,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        if (this.User?.Identity?.IsAuthenticated == false)
-            return RedirectToAction("Index", "Auth");
+        var a =  this.User.Identity.IsAuthenticated;
         return View();
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

@@ -27,6 +27,7 @@ namespace Devgram.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDependencyConfig();
             services.AddWebConfig(Configuration);
             services.AddIdentityConfig(Configuration);
         }

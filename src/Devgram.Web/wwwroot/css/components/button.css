@@ -1,0 +1,190 @@
+.btn-outline-white {
+    border: 0.09375rem solid white;
+}
+
+.btn-outline-white:hover {
+    background-color: white;
+}
+
+.btn-outline-black {
+    border: 0.09375rem solid black;
+}
+
+.btn-outline-black:hover {
+    background-color: black;
+    color: white;
+}
+
+.btn-outline-white,
+.btn-outline-black {
+    border-radius: 4px;
+    background-color: transparent;
+    padding: calc(1rem - 0.09375rem) 2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    transition: all 500ms;
+}
+
+
+
+.btn-outline-white .btn-label,
+.btn-outline-black .btn-label {
+    font-size: 1rem;
+    font-family: 'Helvetica Now Display Bold';
+    line-height: 120%;
+    transition: all 300ms;
+}
+
+.btn-outline-white .btn-label {
+    color: white;
+}
+
+.btn-outline-black .btn-label {
+    color: black;
+}
+
+.btn-outline-white:hover .btn-label {
+    color: black;
+}
+
+.btn-outline-black:hover .btn-label {
+    color: white;
+}
+
+.btn-outline-white .btn-arrow,
+.btn-outline-black .btn-arrow {
+    position: relative;
+    width: 2.5rem;
+    max-width: 2.5rem;
+    transition: all 300ms;
+}
+
+.btn-outline-white:hover .btn-arrow,
+.btn-outline-black:hover .btn-arrow {
+    width: 5rem;
+    max-width: 5rem;
+}
+
+@media (max-width: 800px) {
+    .btn-outline-white,
+    .btn-outline-black  {
+        padding: calc(1.5384615385rem - 0.09375rem) 2.4615384615rem;
+        gap: 1.2307692308rem;
+        width: 100%;
+    }
+
+    .btn-outline-white .btn-label,
+    .btn-outline-black .btn-label {
+        font-size: 1.2307692308rem;
+    }
+
+    .btn-outline-white .btn-arrow,
+    .btn-outline-black .btn-arrow {
+        width: unset;
+        max-width: unset;
+        flex: 1;
+    }
+
+    .btn-outline-white:hover .btn-arrow,
+    .btn-outline-black:hover .btn-arrow {
+        width: unset;
+        max-width: unset;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1400px) {
+    .btn-outline-white,
+    .btn-outline-black  {
+        padding: .825rem 1.25rem;
+    }
+
+    .btn-outline-white .btn-arrow,
+    .btn-outline-black .btn-arrow {
+        width: 2rem;
+        max-width: 2rem;
+    }
+
+    .btn-outline-white:hover .btn-arrow,
+    .btn-outline-black:hover .btn-arrow {
+        width: 3rem;
+        max-width: 3rem;
+    }
+}
+
+.btn-outline-white .btn-arrow::before,
+.btn-outline-black .btn-arrow::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    height: 0.09375rem;
+    width: 100%;
+    transition: all 300ms;
+}
+
+.btn-outline-white .btn-arrow::before {
+    background-color: white;
+}
+
+.btn-outline-black .btn-arrow::before {
+    background-color: black;
+}
+
+
+.btn-outline-white:hover .btn-arrow::before {
+    background-color: black;
+}
+
+.btn-outline-black:hover .btn-arrow::before {
+    background-color: white;
+}
+
+.btn-outline-white .btn-arrow:after,
+.btn-outline-black .btn-arrow:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -1px;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    border-top: .28125rem solid transparent;
+    border-bottom: .28125rem solid transparent;
+    width: 0;
+    height: 0;
+    transition: all 300ms;
+}
+
+.btn-outline-white .btn-arrow:after {
+    border-left: .5625rem solid white;
+}
+
+.btn-outline-black .btn-arrow:after {
+    border-left: .5625rem solid black;
+}
+
+.btn-outline-white:hover .btn-arrow:after {
+    border-left: .5625rem solid #000;
+}
+
+.btn-outline-black:hover .btn-arrow:after {
+    border-left: .5625rem solid white;
+}
+
+.btn-outline-white:hover svg > path {
+    stroke: #000 !important;
+}
+
+.btn-outline-black:hover svg > path {
+    stroke: #fff !important;
+}
+
+.btn-outline-white svg > path,
+.btn-outline-black svg > path {
+    transition: stroke 300ms;
+}
+
+

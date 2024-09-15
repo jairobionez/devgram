@@ -87,10 +87,10 @@ namespace Devgram.Web.Configuration
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseIdentityConfig();
 
             app.UseCors("Total");
             app.UseSession();
-            app.UseIdentityConfig();
 
             app.MapControllerRoute(
                 name: "default",

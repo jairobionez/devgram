@@ -1,0 +1,46 @@
+.input-md {
+    border-radius: .5rem;
+    border: 1px solid #E7E7E7;
+    padding: 1.3125rem 1rem;
+    color: #000;
+    font-size: 0.87rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 24px */
+    width: 100%;
+}
+
+
+::placeholder {
+    color: var(--black);
+    opacity: 1;
+}
+
+::-ms-input-placeholder {
+    color: var(--black);
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group label {
+    font-size: var(--size-13);
+    line-height: 120%;
+    position: absolute;
+    top: var(--size-10);
+    left: var(--size-20);
+    color: #707070;
+}
+
+.form-group input {
+    border-radius: .5rem;
+    border: 1px solid #E7E7E7;
+    color: #000;
+    font-style: normal;
+    font-weight: 400;
+    width: 100%;
+    padding: 1.75rem 1.25rem 0.625rem;
+    font-size: var(--size-18);
+    line-height: 120%;
+}

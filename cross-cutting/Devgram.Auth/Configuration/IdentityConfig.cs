@@ -21,9 +21,9 @@ namespace Devgram.Auth.Configuration
                 .AddDefaultTokenProviders();
 
             var appSettingsSection = configuration.GetSection("AppSettings");
-            services.Configure<AppSetting>(appSettingsSection);
+            services.Configure<AppSettings>(appSettingsSection);
 
-            var appSettings = appSettingsSection.Get<AppSetting>();
+            var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
             services.AddAuthentication(x =>
@@ -32,6 +32,14 @@ namespace Devgram.Auth.Configuration
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(x =>
             {
+                x.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        context.Token = context.Request.Cookies["Token"];
+                        return Task.CompletedTask;
+                    },
+                };
                 x.RequireHttpsMetadata = true;
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters

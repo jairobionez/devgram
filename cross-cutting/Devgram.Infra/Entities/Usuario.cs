@@ -20,6 +20,14 @@ namespace Devgram.Infra.Entities
             Numero = numero;
         }
 
+        public Usuario(Guid id, string? nome, string? sobrenome, string? email)
+        {
+            Id = id;
+            Nome = nome;
+            Sobrenome = sobrenome;
+            Email = email;
+        }
+
         public string? Nome { get; private set; }
         public string? Sobrenome { get; private set; }
         public string? Email { get; private set; }
