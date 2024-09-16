@@ -554,3 +554,23 @@
 .mb-24px {
     margin-bottom: 1.5rem !important;
 }
+
+.title {
+    font-size: var(--size-26);
+    font-weight: 600;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.title:after {
+    content: '';
+    position: absolute;
+    left: 2.5rem;
+    top: 100%;
+    transform: translateX(-50%);
+    bottom: var(--size-5);
+    height: var(--size-4);
+    width: 5rem;
+    /*background-color: #FF8A54;*/
+    background: linear-gradient(90deg, rgba(166,84,250,1) 16%, rgba(255,138,84,1) 82%);
+}

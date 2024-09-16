@@ -6,7 +6,7 @@
     left: 0;
     right: 0;
     border-bottom: 1px solid #0000001A;
-    padding: 0 2rem;
+    padding: 1rem 12rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -64,6 +64,12 @@
     z-index: 2;
 }
 
+@media (min-width: 1366px) {
+    .header {
+        padding: 1rem 10rem !important;
+    }
+}
+
 @media (max-width: 1200px) {
     .header {
         padding: 1.65rem 1.84rem;
@@ -71,7 +77,6 @@
 
     .header .img-logo{
         width: 6.25rem;
-
     }
 
     .header .nav {
@@ -81,8 +86,6 @@
     .header .menu-hamburguer {
         display: block;
     }
-
-
 }
 
 
@@ -125,6 +128,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: white;
 }
 
 .header .links-mobile li{
@@ -170,16 +174,19 @@
 }
 
 @media (max-width: 1200px) {
-    #header {
+    #header-mob {
         display: flex;
-
     }
 
     .header .img-header {
         width: 1.4230769231rem;
     }
 
-    .header.aberto .img-header {
-        margin-bottom: 1.5rem;
+    .header.aberto .menu-mobile-content {
+        margin-top: .5rem;
+    }
+
+    .header.aberto {
+        padding: 1.65rem 1.84rem;
     }
 }

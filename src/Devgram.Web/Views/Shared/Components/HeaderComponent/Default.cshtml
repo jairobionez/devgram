@@ -3,22 +3,30 @@
 
 <header class="position-relative" id="header">
     <div class="header">
-        <figure>
-            <a href="/">
-                <img class="img-logo" src="/images/logo.png" alt="Logo devgram"/>
+        @* <figure> *@
+        @*     <a href="/"> *@
+        @*         <img class="img-logo" src="/images/logo.png" alt="Logo devgram"/> *@
+        @*     </a> *@
+        @* </figure> *@
+        <div class="title text-center cursor-pointer">
+            <a asp-action="Index">
+                <span>Devgram</span>
             </a>
-        </figure>
+        </div>
 
         <nav class="nav">
             <ul class="links">
                 <li class="d-flex gap-44">
                     @if (User.Identity?.IsAuthenticated == true)
                     {
-                        <a class="cor-preto font-helvetica-bold" href="/minhaconta">
+                        <a class="cor-preto font-helvetica-bold">
                             Olá, @_aspnetUser.Name
                         </a>
-                        <a class="cor-preto" href="/minhaconta">
-                            Minha conta
+                        <a class="cor-preto">
+                            Novo post
+                        </a>
+                        <a class="cor-preto">
+                            Meus posts
                         </a>
                         <a class="cor-preto" onclick="logout()">
                             Sair
@@ -55,7 +63,7 @@
                     <li class="d-flex align-items-center justify-content-between">
                         @if (User.Identity?.IsAuthenticated == true)
                         {
-                            <a href="/minhaconta">
+                            <a>
                                 <p class="cor-preto font-helvetica-bold font-30">
                                     Olá, @_aspnetUser.Name
                                 </p>
@@ -63,7 +71,7 @@
                         }
                         else
                         {
-                            <a href="/login">
+                            <a asp-controller="Auth" asp-action="Login">
                                 <p class="cor-preto font-helvetica-bold">
                                     Entrar
                                 </p>
@@ -73,23 +81,22 @@
                     @if (User.Identity?.IsAuthenticated == true)
                     {
                         <li>
-                            <a href="/minhaconta">
+                            <a>
                                 <p class="font-helvetica-bold">
-                                    Minha conta
+                                    Novo post
+                                </p>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <p class="font-helvetica-bold">
+                                    Meus posts
                                 </p>
                             </a>
                         </li>
                     }
                 </ul>
             </nav>
-
-            <div>
-                <figure>
-                    <a href="/" class="mb-mob-56">
-                        <img class="img-logo mx-auto" src="/images/logo.png" alt="Logo devgram"/>
-                    </a>
-                </figure>
-            </div>
         </div>
     </div>
 </header>

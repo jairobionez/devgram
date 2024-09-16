@@ -2,6 +2,14 @@
 @import "../components/input.css";
 @import "../components/button.css";
 
+@media (max-width: 1200px) {
+    .login-card {
+        width: 90vw !important;
+        padding: 3rem !important;
+    }
+}
+
+
 .login-container {
     position: relative;
     height: 100vh;
@@ -11,7 +19,7 @@
 }
 
 .login-card {
-    width: 40%;
+    width: 40vw;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -31,12 +39,6 @@
     margin-bottom: 1rem;
 }
 
-.login-subtitle {
-    font-size: var(--size-16);
-    font-weight: 400;
-    position: relative;
-}
-
 .login-title:after {
     content: '';
     position: absolute;
@@ -47,5 +49,10 @@
     height: var(--size-4);
     width: 3rem;
     background-color: #FF8A54;
+}
 
+.login-subtitle {
+    font-size: var(--size-16);
+    font-weight: 400;
+    position: relative;
 }
