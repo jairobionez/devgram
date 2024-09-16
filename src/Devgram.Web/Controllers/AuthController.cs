@@ -9,12 +9,13 @@ using Microsoft.IdentityModel.Tokens;
 using Devgram.Auth.Extensions;
 using Devgram.Infra.Entities;
 using Devgram.Infra.Repositories;
+using Devgram.Web.Extensions;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace Devgram.Web.Controllers;
 
-[Route("autenticar")]
+[Route("auth")]
 public class AuthController : Controller
 {
     private readonly ILogger<AuthController> _logger;
@@ -39,20 +40,21 @@ public class AuthController : Controller
         _passwordHasher = passwordHasher;
         _appSettings = appSettings.Value;
     }
-
+    
     public IActionResult Index()
     {
         return View();
     }
 
-
-    [HttpGet]
+    [HttpGet("login")]
     public IActionResult Login()
     {
+        if(User.Identity.IsAuthenticated) 
+            return RedirectToAction("Index", "Home");
         return View();
     }
 
-    [HttpPost]
+    [HttpPost("login")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> LoginAsync(LoginViewModel model)
     {
@@ -70,6 +72,8 @@ public class AuthController : Controller
                     Secure = true,   
                     SameSite = SameSiteMode.Strict, 
                 });
+                
+                this.AddAlertSuccess("Bem-vindo(a) ao Devgram!!");
                 return RedirectToAction("Index", "Home");
             }
 
@@ -82,6 +86,9 @@ public class AuthController : Controller
     [HttpGet("nova-conta")]
     public IActionResult NovaConta()
     {
+        if(User.Identity.IsAuthenticated) 
+            return RedirectToAction("Index", "Home");
+        
         return View();
     }
 
@@ -105,6 +112,8 @@ public class AuthController : Controller
                 var usuario = new Usuario(Guid.Parse(identityUser.Id), model.Nome, model.Sobrenome, model.Email);
                 await _usuarioRepository.CreateAsync(usuario);
                 
+                this.AddAlertSuccess("Conta criada com sucesso!");
+                
                 return RedirectToAction("Login", "Auth");
             }
 
@@ -115,6 +124,13 @@ public class AuthController : Controller
         return View(model);
     }
 
+    [HttpPost("logout")]
+    public JsonResult LogoutAsync()
+    {
+        Response.Cookies.Delete("Token");
+        return Json(new { redirectTo = "auth/login" });
+    }
+    
     private async Task CreateRoles()
     {
         string[] rolesNames =
@@ -136,6 +152,12 @@ public class AuthController : Controller
     private async Task<UsuarioLoginResponseModel> GerarJwt(string email, string nomeUsuario)
     {
         var identityUser = await _userManager.FindByEmailAsync(email);
+        if (string.IsNullOrEmpty(nomeUsuario))
+        {
+            var usuarioDb = await _usuarioRepository.GetAsync(Guid.Parse(identityUser.Id)); 
+            nomeUsuario = $"{usuarioDb.Nome} {usuarioDb.Sobrenome}";
+        }
+
         var claims = await _userManager.GetClaimsAsync(identityUser);
 
         var identityClaims = await ObterClaimsUsuario(claims, identityUser, nomeUsuario);

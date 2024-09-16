@@ -1,0 +1,119 @@
+@using Devgram.Auth.Extensions
+@inject AspnetUser _aspnetUser;
+
+<header class="position-relative" id="header">
+    <div class="header">
+        <figure>
+            <a href="/">
+                <img class="img-logo" src="/images/logo.png" alt="Logo devgram"/>
+            </a>
+        </figure>
+
+        <nav class="nav">
+            <ul class="links">
+                <li class="d-flex gap-44">
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <a class="cor-preto font-helvetica-bold" href="/minhaconta">
+                            Olá, @_aspnetUser.Name
+                        </a>
+                        <a class="cor-preto" href="/minhaconta">
+                            Minha conta
+                        </a>
+                        <a class="cor-preto" onclick="logout()">
+                            Sair
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="cor-preto" asp-controller="Auth" asp-action="Login">
+                            Entrar
+                        </a>
+                    }
+                </li>
+            </ul>
+        </nav>
+
+        <div class="gap-1 align-items-center" id="header-mob">
+            <svg class="menu-hamburguer" onclick="abrirMenuHamburguer()" xmlns="http://www.w3.org/2000/svg" width="20" height="12" viewBox="0 0 20 12" fill="none">
+                <path d="M0 1H20" stroke="black" stroke-width="1.5"/>
+                <path d="M0 6H20" stroke="black" stroke-width="1.5"/>
+                <path d="M0 11H20" stroke="black" stroke-width="1.5"/>
+            </svg>
+
+            <svg class="menu-hamburguer-close" onclick="fecharMenuHamburguer()" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.5008 9.56146L14.9403 16.001L16.001 14.9403L9.56146 8.5008L16.001 2.06127L14.9403 1.00061L8.5008 7.44014L2.06066 1L1 2.06066L7.44014 8.5008L1 14.9409L2.06066 16.0016L8.5008 9.56146Z" fill="black"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.5008 9.56146L14.9403 16.001L16.001 14.9403L9.56146 8.5008L16.001 2.06127L14.9403 1.00061L8.5008 7.44014L2.06066 1L1 2.06066L7.44014 8.5008L1 14.9409L2.06066 16.0016L8.5008 9.56146Z" fill="black"/>
+                <path d="M14.9403 16.001L14.5868 16.3546L14.9403 16.7081L15.2939 16.3546L14.9403 16.001ZM8.5008 9.56146L8.85436 9.20791L8.5008 8.85436L8.14725 9.20791L8.5008 9.56146ZM16.001 14.9403L16.3546 15.2939L16.7081 14.9403L16.3546 14.5868L16.001 14.9403ZM9.56146 8.5008L9.20791 8.14725L8.85436 8.5008L9.20791 8.85436L9.56146 8.5008ZM16.001 2.06127L16.3546 2.41482L16.7081 2.06127L16.3546 1.70771L16.001 2.06127ZM14.9403 1.00061L15.2939 0.647053L14.9403 0.2935L14.5868 0.647053L14.9403 1.00061ZM8.5008 7.44014L8.14725 7.7937L8.5008 8.14725L8.85436 7.7937L8.5008 7.44014ZM2.06066 1L2.41421 0.646447L2.06066 0.292893L1.70711 0.646447L2.06066 1ZM1 2.06066L0.646447 1.70711L0.292893 2.06066L0.646447 2.41421L1 2.06066ZM7.44014 8.5008L7.7937 8.85436L8.14725 8.5008L7.7937 8.14725L7.44014 8.5008ZM1 14.9409L0.646447 14.5874L0.292893 14.9409L0.646447 15.2945L1 14.9409ZM2.06066 16.0016L1.70711 16.3552L2.06066 16.7087L2.41421 16.3552L2.06066 16.0016ZM15.2939 15.6474L8.85436 9.20791L8.14725 9.91502L14.5868 16.3546L15.2939 15.6474ZM15.6474 14.5868L14.5868 15.6474L15.2939 16.3546L16.3546 15.2939L15.6474 14.5868ZM9.20791 8.85436L15.6474 15.2939L16.3546 14.5868L9.91502 8.14725L9.20791 8.85436ZM15.6474 1.70771L9.20791 8.14725L9.91502 8.85436L16.3546 2.41482L15.6474 1.70771ZM14.5868 1.35416L15.6474 2.41482L16.3546 1.70771L15.2939 0.647053L14.5868 1.35416ZM8.85436 7.7937L15.2939 1.35416L14.5868 0.647053L8.14725 7.08659L8.85436 7.7937ZM1.70711 1.35355L8.14725 7.7937L8.85436 7.08659L2.41421 0.646447L1.70711 1.35355ZM1.35355 2.41421L2.41421 1.35355L1.70711 0.646447L0.646447 1.70711L1.35355 2.41421ZM7.7937 8.14725L1.35355 1.70711L0.646447 2.41421L7.08659 8.85436L7.7937 8.14725ZM1.35355 15.2945L7.7937 8.85436L7.08659 8.14725L0.646447 14.5874L1.35355 15.2945ZM2.41421 15.6481L1.35355 14.5874L0.646447 15.2945L1.70711 16.3552L2.41421 15.6481ZM8.14725 9.20791L1.70711 15.6481L2.41421 16.3552L8.85436 9.91502L8.14725 9.20791Z" fill="black"/>
+            </svg>
+        </div>
+
+        @* MENU MOBILE *@
+        <div class="menu-mobile-content">
+            <nav class="nav-mobile">
+                <ul class="links-mobile">
+                    <li class="d-flex align-items-center justify-content-between">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <a href="/minhaconta">
+                                <p class="cor-preto font-helvetica-bold font-30">
+                                    Olá, @_aspnetUser.Name
+                                </p>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="/login">
+                                <p class="cor-preto font-helvetica-bold">
+                                    Entrar
+                                </p>
+                            </a>
+                        }
+                    </li>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <li>
+                            <a href="/minhaconta">
+                                <p class="font-helvetica-bold">
+                                    Minha conta
+                                </p>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+
+            <div>
+                <figure>
+                    <a href="/" class="mb-mob-56">
+                        <img class="img-logo mx-auto" src="/images/logo.png" alt="Logo devgram"/>
+                    </a>
+                </figure>
+            </div>
+        </div>
+    </div>
+</header>
+
+<script>
+    function abrirMenuHamburguer() {
+        document.querySelector('.header').classList.add('aberto');
+        console.log('clkicou');
+    }
+
+    function fecharMenuHamburguer() {
+        document.querySelector('.header').classList.remove('aberto');
+    }
+    
+    function logout() {
+        $.ajax({
+            url: "@Url.Action("Logout", "Auth")",
+            data: { },
+            type: "Post",
+            success: function (result) {
+                window.location.href = result.redirectTo;
+            },
+            error: function (result) {
+            }
+        });
+    }
+</script>

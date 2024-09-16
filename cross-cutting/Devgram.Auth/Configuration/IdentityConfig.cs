@@ -15,6 +15,8 @@ namespace Devgram.Auth.Configuration
         public static IServiceCollection AddIdentityConfig(this IServiceCollection services, IConfiguration configuration)
         {
 
+            services.AddScoped<AspnetUser>();
+            
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddErrorDescriber<IdentityMensagensPortugues>()
                 .AddEntityFrameworkStores<DbContext>()

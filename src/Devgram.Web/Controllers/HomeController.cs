@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Devgram.Web.Controllers;
 
-[Route("home"), Authorize]
+[Route("home")]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;

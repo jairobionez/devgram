@@ -1,4 +1,5 @@
 using Devgram.Infra.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Devgram.Infra.Repositories;
 
@@ -17,5 +18,10 @@ public class UsuarioRepository
         await _context.SaveChangesAsync();
 
         return usuario.Id;
+    }
+
+    public async Task<Usuario?> GetAsync(Guid id)
+    {
+        return await _context.Set<Usuario>().FirstOrDefaultAsync(p => p.Id == id);
     }
 }

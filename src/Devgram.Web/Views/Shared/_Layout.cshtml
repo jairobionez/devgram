@@ -1,21 +1,26 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="~/css/base/reset.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/base/utils.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Devgram.Web.styles.css" asp-append-version="true" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/components/alert.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/components/header.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/Devgram.Web.styles.css" asp-append-version="true"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet"/>
 </head>
 <body>
-    @RenderBody()
-    
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-    @await RenderSectionAsync("Head", false)
+<div class="alert-container">
+<alert></alert>
+</div>
+@RenderBody()
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+@await RenderSectionAsync("Head", false)
 </body>
 </html>

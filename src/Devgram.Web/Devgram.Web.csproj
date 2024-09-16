@@ -61,6 +61,10 @@
     <Folder Include="wwwroot\images\login\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Views\Shared\Components\Header\HeaderViewComponent.cs" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
