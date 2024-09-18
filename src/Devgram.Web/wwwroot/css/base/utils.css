@@ -574,3 +574,8 @@
     /*background-color: #FF8A54;*/
     background: linear-gradient(90deg, rgba(166,84,250,1) 16%, rgba(255,138,84,1) 82%);
 }
+
+.global-container {
+    margin: 0 auto;
+    max-width: 80rem;
+}

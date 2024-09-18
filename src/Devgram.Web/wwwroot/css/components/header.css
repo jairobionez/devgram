@@ -5,13 +5,13 @@
     top: 0;
     left: 0;
     right: 0;
-    border-bottom: 1px solid #0000001A;
-    padding: 1rem 12rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-height: 5rem;
+    padding: 1rem 0;
+}
 
+.header-border {
 }
 
 .header::before {
@@ -25,6 +25,8 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     z-index: -1;
+    border-bottom: 1px solid #0000001A;
+    
 }
 
 
@@ -64,7 +66,7 @@
     z-index: 2;
 }
 
-@media (min-width: 1366px) {
+@media (max-width: 1366px) {
     .header {
         padding: 1rem 10rem !important;
     }

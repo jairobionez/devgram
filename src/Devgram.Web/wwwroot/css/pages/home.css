@@ -2,31 +2,16 @@
 @import "../components/input.css";
 @import "../components/button.css";
 
-
-@media (max-width: 1366px) {
-    .card {
-        width: 22rem !important;
-    }
-    
-    .post-container {
-        gap: 3.5rem !important;;
-    }
-}
-
 .post-container {
-    height: 100%;
-    max-width: 78%;
-    margin: 0 auto;
     padding-top: 7rem;
     overflow: auto;
-    display: flex;
     align-items: center;
     gap: 2.5rem;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 } 
 
 .card {
-    width: 26rem;
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -66,10 +51,16 @@
     border-radius: 4px;
     cursor: pointer;
     text-align: center;
-    animation: pulse 2s infinite;
+    transition: background-color 300ms ease;
 }
 
 .btn:hover {
-    animation: pulse 2s infinite;
     background-color: var(--orange);
+}
+
+@media (max-width: 1366px) {
+    .post-container {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
 }
