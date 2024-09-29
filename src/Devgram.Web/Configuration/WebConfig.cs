@@ -26,9 +26,7 @@ namespace Devgram.Web.Configuration
             });
 
             services.AddSession();
-
-            // var conn = configuration["DB_CONN"] ?? configuration.GetConnectionString("DefaultConnection");
-
+            
             var conn = configuration["DB_CONN"];
 
             services.AddDbContext<DbContext>(options =>

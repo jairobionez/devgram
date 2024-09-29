@@ -1,3 +1,5 @@
+using Devgram.Auth.Extensions;
+using Devgram.Infra.Interfaces;
 using Devgram.Infra.Repositories;
 
 namespace Devgram.Web.Configuration;
@@ -8,6 +10,8 @@ public static class DependencyConfig
     {
         services.AddHttpContextAccessor();
         services.AddScoped<UsuarioRepository>();
+        services.AddScoped<PublicacaoRepository>();
+        services.AddScoped<IAspnetUser, AspnetUser>();
 
         return services;
     }

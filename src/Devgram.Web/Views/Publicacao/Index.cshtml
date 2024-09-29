@@ -1,0 +1,49 @@
+@using Devgram.ViewModel
+@using Devgram.Web.Extensions
+
+@section Head {
+    <link rel="stylesheet" href="~/css/pages/post.css" asp-append-version="true"/>
+    <title>Devgram • Publicações</title>
+}
+
+@model List<PublicacaoResponseModel> 
+
+<vc:header-component></vc:header-component>
+
+<div class="global-container">
+    <div class="d-flex justify-content-between mb-2">
+        <div class="form-group">
+            <label>Pesquisar</label>
+            <input id="termo" class="form-control"/>
+        </div>
+        <a asp-action="NovaPublicacao">
+            <button class="btn-outline-orange">
+                Nova publicação
+                <span class="material-icons">add</span>
+            </button>
+        </a>
+    </div>
+
+    <div id="lista-publicacao">
+        <partial name="_ListaPublicacoes" model="Model"/>
+    </div>
+
+</div>
+<script>
+    $('#termo').bind('keyup', function(e) {
+        if(e.type === 'keyup' && e.keyCode !== 10 && e.keyCode !== 13) return;
+        
+        $.ajax({
+            url: "@Url.Action("filtrar", "Publicacao")",
+            data: { termo: $('#termo').val() },
+            type: "Post",
+            success: function (result) {
+                $("#lista-publicacao").html("");
+                $("#lista-publicacao").html(result);
+            },
+            error: function (result) {
+                window.alert("This is an unhandled exception. ");
+            }
+        });
+    });
+</script>

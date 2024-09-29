@@ -1,14 +1,15 @@
-@using Devgram.Auth.Extensions
-@inject AspnetUser _aspnetUser;
+@using Devgram.Infra.Interfaces
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject IAspnetUser _aspnetUser;
 
-<header class="header header-border global-container" id="header">
+<header class="header header-border" id="header">
         @* <figure> *@
         @*     <a href="/"> *@
         @*         <img class="img-logo" src="/images/logo.png" alt="Logo devgram"/> *@
         @*     </a> *@
         @* </figure> *@
         <div class="title text-center cursor-pointer">
-            <a asp-action="Index">
+            <a asp-controller="Home" asp-action="Index">
                 <span>Devgram</span>
             </a>
         </div>
@@ -21,13 +22,10 @@
                         <a class="cor-preto font-helvetica-bold">
                             Olá, @_aspnetUser.Name
                         </a>
-                        <a class="cor-preto">
-                            Novo post
+                        <a class="cor-preto" asp-controller="publicacao" asp-action="Index">
+                            Minhas Publicações
                         </a>
-                        <a class="cor-preto">
-                            Meus posts
-                        </a>
-                        <a class="cor-preto" onclick="logout()">
+                        <a class="cor-preto" asp-controller="Auth" asp-action="Logout">
                             Sair
                         </a>
                     }
@@ -107,18 +105,5 @@
 
     function fecharMenuHamburguer() {
         document.querySelector('.header').classList.remove('aberto');
-    }
-    
-    function logout() {
-        $.ajax({
-            url: "@Url.Action("Logout", "Auth")",
-            data: { },
-            type: "Post",
-            success: function (result) {
-                window.location.href = result.redirectTo;
-            },
-            error: function (result) {
-            }
-        });
     }
 </script>

@@ -1,9 +1,10 @@
 using System.Security.Claims;
+using Devgram.Infra.Interfaces;
 using Microsoft.AspNetCore.Http;
 
 namespace Devgram.Auth.Extensions;
 
-public class AspnetUser
+public class AspnetUser : IAspnetUser
 {
     private readonly IHttpContextAccessor _accessor;
 

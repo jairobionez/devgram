@@ -4,14 +4,21 @@
     {
         protected PublicacaoComentario()
         {
-            
+            DataCriacao = DateTime.Now;
         }
 
+        public PublicacaoComentario(string? descricao)
+        {
+            Descricao = descricao;
+            DataCriacao = DateTime.Now;
+        }
+        
         public PublicacaoComentario(string? descricao, bool editado, Guid publicacaoId)
         {
             Descricao = descricao;
             Editado = editado;
             PublicacaoId = publicacaoId;
+            DataCriacao = DateTime.Now;
         }
 
         public string? Descricao { get; private set; }

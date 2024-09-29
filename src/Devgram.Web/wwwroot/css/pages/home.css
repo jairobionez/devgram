@@ -3,12 +3,11 @@
 @import "../components/button.css";
 
 .post-container {
-    padding-top: 7rem;
     overflow: auto;
     align-items: center;
     gap: 2.5rem;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 } 
 
 .card {
@@ -17,6 +16,7 @@
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    height: 23rem;
 }
 
 .card-image {
@@ -27,6 +27,11 @@
 
 .card-content {
     padding: 15px;
+    height: 10rem;
+}
+
+.card-footer {
+    padding: 0 15px;
 }
 
 .card-title {

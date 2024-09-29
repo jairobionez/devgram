@@ -1,98 +1,27 @@
-﻿@section Head {
+﻿@using Devgram.Web.Extensions
+@using Devgram.Web.ViewComponents
+
+@section Head {
     <link rel="stylesheet" href="~/css/pages/home.css" asp-append-version="true"/>
     <title>Devgram • Home</title>
 }
 
+@model List<Devgram.ViewModel.PublicacaoResponseModel>
+
 <vc:header-component></vc:header-component>
 
 <div class="post-container global-container">
-    <div class="card">
-        <img src="https://via.placeholder.com/300x150" alt="Post Image" class="card-image">
-        <div class="card-content">
-            <h2 class="title">Título do Post</h2>
-            <p class="card-description">Breve descrição do conteúdo do post. Algo que atraia a atenção do leitor e o incentive a clicar para ler mais.</p>
-            <button class="btn">Ler Mais</button>
+    @foreach (var publicacao in Model)
+    {
+        <div class="card">
+            <img src="@publicacao.Logo" alt="Post Image" class="card-image">
+            <div class="card-content">
+                <h2 class="title">@publicacao.Titulo.Truncate(50)</h2>
+                <p class="card-description">@publicacao.Descricao.Truncate(200)</p>
+            </div>
+            <div class="card-footer">
+                <button class="btn">Ler Mais</button>
+            </div>
         </div>
-    </div>
-
-    <div class="card">
-        <img src="https://via.placeholder.com/300x150" alt="Post Image" class="card-image">
-        <div class="card-content">
-            <h2 class="title">Título do Post</h2>
-            <p class="card-description">Breve descrição do conteúdo do post. Algo que atraia a atenção do leitor e o incentive a clicar para ler mais.</p>
-            <button class="btn">Ler Mais</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://via.placeholder.com/300x150" alt="Post Image" class="card-image">
-        <div class="card-content">
-            <h2 class="title">Título do Post</h2>
-            <p class="card-description">Breve descrição do conteúdo do post. Algo que atraia a atenção do leitor e o incentive a clicar para ler mais.</p>
-            <button class="btn">Ler Mais</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://via.placeholder.com/300x150" alt="Post Image" class="card-image">
-        <div class="card-content">
-            <h2 class="title">Título do Post</h2>
-            <p class="card-description">Breve descrição do conteúdo do post. Algo que atraia a atenção do leitor e o incentive a clicar para ler mais.</p>
-            <button class="btn">Ler Mais</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://via.placeholder.com/300x150" alt="Post Image" class="card-image">
-        <div class="card-content">
-            <h2 class="title">Título do Post</h2>
-            <p class="card-description">Breve descrição do conteúdo do post. Algo que atraia a atenção do leitor e o incentive a clicar para ler mais.</p>
-            <button class="btn">Ler Mais</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://via.placeholder.com/300x150" alt="Post Image" class="card-image">
-        <div class="card-content">
-            <h2 class="title">Título do Post</h2>
-            <p class="card-description">Breve descrição do conteúdo do post. Algo que atraia a atenção do leitor e o incentive a clicar para ler mais.</p>
-            <button class="btn">Ler Mais</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://via.placeholder.com/300x150" alt="Post Image" class="card-image">
-        <div class="card-content">
-            <h2 class="title">Título do Post</h2>
-            <p class="card-description">Breve descrição do conteúdo do post. Algo que atraia a atenção do leitor e o incentive a clicar para ler mais.</p>
-            <button class="btn">Ler Mais</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://via.placeholder.com/300x150" alt="Post Image" class="card-image">
-        <div class="card-content">
-            <h2 class="title">Título do Post</h2>
-            <p class="card-description">Breve descrição do conteúdo do post. Algo que atraia a atenção do leitor e o incentive a clicar para ler mais.</p>
-            <button class="btn">Ler Mais</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://via.placeholder.com/300x150" alt="Post Image" class="card-image">
-        <div class="card-content">
-            <h2 class="title">Título do Post</h2>
-            <p class="card-description">Breve descrição do conteúdo do post. Algo que atraia a atenção do leitor e o incentive a clicar para ler mais.</p>
-            <button class="btn">Ler Mais</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://via.placeholder.com/300x150" alt="Post Image" class="card-image">
-        <div class="card-content">
-            <h2 class="title">Título do Post</h2>
-            <p class="card-description">Breve descrição do conteúdo do post. Algo que atraia a atenção do leitor e o incentive a clicar para ler mais.</p>
-            <button class="btn">Ler Mais</button>
-        </div>
-    </div>
+    }
 </div>

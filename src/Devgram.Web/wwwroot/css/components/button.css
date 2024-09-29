@@ -1,22 +1,23 @@
-.btn-outline-white {
-    border: 0.09375rem solid white;
+.btn-outline-purple {
+    border: 0.09375rem solid #E7E7E7;
 }
 
-.btn-outline-white:hover {
+.btn-outline-purple:hover {
     background-color: white;
 }
 
-.btn-outline-black {
-    border: 0.09375rem solid black;
+.btn-outline-orange {
+    border: 0.09375rem solid #E7E7E7;
 }
 
-.btn-outline-black:hover {
-    background-color: black;
+.btn-outline-orange:hover {
+    background-color: #FF8A54;
     color: white;
+    border: 1px solid white;
 }
 
-.btn-outline-white,
-.btn-outline-black {
+.btn-outline-purple,
+.btn-outline-orange {
     border-radius: 4px;
     background-color: transparent;
     padding: calc(1rem - 0.09375rem) 2.25rem;
@@ -29,92 +30,92 @@
 
 
 
-.btn-outline-white .btn-label,
-.btn-outline-black .btn-label {
+.btn-outline-purple .btn-label,
+.btn-outline-orange .btn-label {
     font-size: 1rem;
     font-family: 'Helvetica Now Display Bold';
     line-height: 120%;
     transition: all 300ms;
 }
 
-.btn-outline-white .btn-label {
+.btn-outline-purple .btn-label {
     color: white;
 }
 
-.btn-outline-black .btn-label {
+.btn-outline-orange .btn-label {
     color: black;
 }
 
-.btn-outline-white:hover .btn-label {
+.btn-outline-purple:hover .btn-label {
     color: black;
 }
 
-.btn-outline-black:hover .btn-label {
+.btn-outline-orange:hover .btn-label {
     color: white;
 }
 
-.btn-outline-white .btn-arrow,
-.btn-outline-black .btn-arrow {
+.btn-outline-purple .btn-arrow,
+.btn-outline-orange .btn-arrow {
     position: relative;
     width: 2.5rem;
     max-width: 2.5rem;
     transition: all 300ms;
 }
 
-.btn-outline-white:hover .btn-arrow,
-.btn-outline-black:hover .btn-arrow {
+.btn-outline-purple:hover .btn-arrow,
+.btn-outline-orange:hover .btn-arrow {
     width: 5rem;
     max-width: 5rem;
 }
 
 @media (max-width: 800px) {
-    .btn-outline-white,
-    .btn-outline-black  {
+    .btn-outline-purple,
+    .btn-outline-orange  {
         padding: calc(1.5384615385rem - 0.09375rem) 2.4615384615rem;
         gap: 1.2307692308rem;
         width: 100%;
     }
 
-    .btn-outline-white .btn-label,
-    .btn-outline-black .btn-label {
+    .btn-outline-purple .btn-label,
+    .btn-outline-orange .btn-label {
         font-size: 1.2307692308rem;
     }
 
-    .btn-outline-white .btn-arrow,
-    .btn-outline-black .btn-arrow {
+    .btn-outline-purple .btn-arrow,
+    .btn-outline-orange .btn-arrow {
         width: unset;
         max-width: unset;
         flex: 1;
     }
 
-    .btn-outline-white:hover .btn-arrow,
-    .btn-outline-black:hover .btn-arrow {
+    .btn-outline-purple:hover .btn-arrow,
+    .btn-outline-orange:hover .btn-arrow {
         width: unset;
         max-width: unset;
     }
 }
 
 @media (min-width: 800px) and (max-width: 1400px) {
-    .btn-outline-white,
-    .btn-outline-black  {
+    .btn-outline-purple,
+    .btn-outline-orange  {
         padding: .825rem 1.25rem;
     }
 
-    .btn-outline-white .btn-arrow,
-    .btn-outline-black .btn-arrow {
+    .btn-outline-purple .btn-arrow,
+    .btn-outline-orange .btn-arrow {
         width: 2rem;
         max-width: 2rem;
     }
 
-    .btn-outline-white:hover .btn-arrow,
-    .btn-outline-black:hover .btn-arrow {
+    .btn-outline-purple:hover .btn-arrow,
+    .btn-outline-orange:hover .btn-arrow {
         width: 3rem;
         max-width: 3rem;
     }
 }
 
-.btn-outline-white .btn-arrow::before,
-.btn-outline-black .btn-arrow::before {
+.btn-outline-purple .btn-arrow::before,
+.btn-outline-orange .btn-arrow::before {
     content: "";
     position: absolute;
     top: 50%;
@@ -126,25 +127,25 @@
     transition: all 300ms;
 }
 
-.btn-outline-white .btn-arrow::before {
+.btn-outline-purple .btn-arrow::before {
     background-color: white;
 }
 
-.btn-outline-black .btn-arrow::before {
-    background-color: black;
+.btn-outline-orange .btn-arrow::before {
+    background-color: #FF8A54;
 }
 
 
-.btn-outline-white:hover .btn-arrow::before {
-    background-color: black;
+.btn-outline-purple:hover .btn-arrow::before {
+    background-color: #FF8A54;
 }
 
-.btn-outline-black:hover .btn-arrow::before {
+.btn-outline-orange:hover .btn-arrow::before {
     background-color: white;
 }
 
-.btn-outline-white .btn-arrow:after,
-.btn-outline-black .btn-arrow:after {
+.btn-outline-purple .btn-arrow:after,
+.btn-outline-orange .btn-arrow:after {
     content: "";
     position: absolute;
     top: 50%;
@@ -158,32 +159,32 @@
     transition: all 300ms;
 }
 
-.btn-outline-white .btn-arrow:after {
+.btn-outline-purple .btn-arrow:after {
     border-left: .5625rem solid white;
 }
 
-.btn-outline-black .btn-arrow:after {
+.btn-outline-orange .btn-arrow:after {
     border-left: .5625rem solid black;
 }
 
-.btn-outline-white:hover .btn-arrow:after {
+.btn-outline-purple:hover .btn-arrow:after {
     border-left: .5625rem solid #000;
 }
 
-.btn-outline-black:hover .btn-arrow:after {
+.btn-outline-orange:hover .btn-arrow:after {
     border-left: .5625rem solid white;
 }
 
-.btn-outline-white:hover svg > path {
+.btn-outline-purple:hover svg > path {
     stroke: #000 !important;
 }
 
-.btn-outline-black:hover svg > path {
+.btn-outline-orange:hover svg > path {
     stroke: #fff !important;
 }
 
-.btn-outline-white svg > path,
-.btn-outline-black svg > path {
+.btn-outline-purple svg > path,
+.btn-outline-orange svg > path {
     transition: stroke 300ms;
 }
 

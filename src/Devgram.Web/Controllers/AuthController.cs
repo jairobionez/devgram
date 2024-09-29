@@ -124,11 +124,11 @@ public class AuthController : Controller
         return View(model);
     }
 
-    [HttpPost("logout")]
-    public JsonResult LogoutAsync()
+    [HttpGet("logout")]
+    public IActionResult LogoutAsync()
     {
         Response.Cookies.Delete("Token");
-        return Json(new { redirectTo = "auth/login" });
+        return RedirectToAction("Index", "Home");
     }
     
     private async Task CreateRoles()

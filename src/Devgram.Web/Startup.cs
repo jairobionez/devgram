@@ -1,4 +1,5 @@
 using Devgram.Auth.Configuration;
+using Devgram.Infra;
 using Devgram.Web.Configuration;
 using Devgram.Web.Interfaces;
 
@@ -28,8 +29,10 @@ namespace Devgram.Web
         {
             services.AddControllersWithViews();
             services.AddDependencyConfig();
+            services.AddAutoMapper(typeof(Startup));
             services.AddWebConfig(Configuration);
             services.AddIdentityConfig(Configuration);
+            services.DbInitializer();
         }
 
         public void Configure(WebApplication app, IWebHostEnvironment env)

@@ -576,6 +576,6 @@
 }
 
 .global-container {
-    margin: 0 auto;
-    max-width: 80rem;
+    margin: 7rem auto 0;
+    max-width: 90rem;
 }

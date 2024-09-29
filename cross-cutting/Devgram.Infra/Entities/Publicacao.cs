@@ -7,15 +7,28 @@
 
         }
 
-        public Publicacao(string? descricao, Guid usuarioId, string titulo)
+        public Publicacao(string titulo, string? descricao, Guid usuarioId, string logo)
         {
             Titulo = titulo;
             Descricao = descricao;
             UsuarioId = usuarioId;
+            Logo = logo;
+            DataCriacao = DateTime.Now;
+        }
+        
+        public Publicacao(string titulo, string? descricao, Guid usuarioId, string logo, List<PublicacaoComentario> comentarios)
+        {
+            Titulo = titulo;
+            Descricao = descricao;
+            UsuarioId = usuarioId;
+            Logo = logo;
+            DataCriacao = DateTime.Now;
+            Comentarios = comentarios;
         }
 
         public string? Titulo { get; private set; }
         public string? Descricao { get; private set; }
+        public string? Logo { get; private set; }
         public virtual ICollection<PublicacaoAnexo>? Anexos { get; private set; }
         public virtual ICollection<PublicacaoComentario>? Comentarios { get; private set; }
 
@@ -26,7 +39,7 @@
         {
             Titulo = publicacao.Titulo;
             Descricao = publicacao.Descricao;
-            Anexos = publicacao.Anexos;
+            Logo = publicacao.Logo;
             Comentarios = publicacao.Comentarios;
             DataAtualizacao = DateTime.Now;
         }

@@ -1,0 +1,41 @@
+@using Devgram.Web.Extensions
+@using Devgram.ViewModel
+
+@model List<PublicacaoResponseModel>
+
+<table>
+    <thead>
+    <tr>
+        <th></th>
+        <th>Título</th>
+        <th>Descrição</th>
+        <th>Data de Criação</th>
+        <th>Última Atualização</th>
+        <th class="acao">Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var publicacao in Model)
+    {
+        <tr>
+            <td>
+                <img class="img-listagem" src="@publicacao.Logo" width="200"/>
+            </td>
+            <td>@publicacao.Titulo</td>
+            <td class="desricao">
+                @publicacao.Descricao.Truncate(200)
+            </td>
+            <td>@publicacao.DataCriacao!.Value.ToString("dd/MM/yyyy")</td>
+            <td>@(publicacao.DataAtualizacao.HasValue ? publicacao.DataAtualizacao!.Value.ToString("dd/MM/yyyy") : "-")</td>
+            <td>
+                <a asp-action="EditarPublicacao" asp-route-id="@publicacao.Id">
+                    <span class="material-icons cursor-pointer">edit</span>
+                </a>
+                <a>
+                    <span class="material-icons cursor-pointer cor-vermelha">delete</span>
+                </a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
