@@ -41,6 +41,8 @@ namespace Devgram.Infra.Entities
         public virtual ICollection<Publicacao> Publicacoes { get; private set; }
         public virtual ICollection<PublicacaoComentario> Comentarios { get; private set; }
 
+        public string NomeCompelto() => $"{Nome} {Sobrenome}";
+
         public void Atualizar(Usuario usuario)
         {
             Nome = usuario.Nome;

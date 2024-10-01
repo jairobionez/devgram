@@ -4,6 +4,7 @@ using Devgram.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using Devgram.Infra.Entities;
+using Devgram.Web.Extensions;
 
 namespace Devgram.Web.Controllers;
 
@@ -79,11 +80,40 @@ public class PublicacaoController: Controller
     [HttpPost("editar-publicacao/{id}")]
     public async Task<ActionResult> EditarPublicacao(Guid id, PublicacaoResponseModel publicacao)
     {
-        if (publicacao.File != null && publicacao.File.Length > 0)
-            publicacao.Logo = await UpdateFile(publicacao.File, publicacao.Logo);
+        if (ModelState.IsValid)
+        {
+            if (publicacao.File != null && publicacao.File.Length > 0)
+                publicacao.Logo = await UpdateFile(publicacao.File, publicacao.Logo);
         
-        await _publicacaoRepository.UpdateAsync(id, _mapper.Map<Publicacao>(publicacao));
-        return RedirectToAction("Index");
+            await _publicacaoRepository.UpdateAsync(id, _mapper.Map<Publicacao>(publicacao));
+            return RedirectToAction("Index");
+        }
+
+        return View(publicacao);
+    }
+    
+    [HttpGet("remover-publicacao/{id}")]
+    public async Task<ActionResult> DeletarPublicacao(Guid id)
+    {
+        var publicacao = _mapper.Map<PublicacaoResponseModel>(await _publicacaoRepository.GetAsync(id));
+        
+        return View(publicacao);
+    }
+    
+    [HttpDelete("remover-publicacao/{id}")]
+    public async Task<JsonResult> ConfirmarDeletarPublicacao(Guid id)
+    {
+        await _publicacaoRepository.DeleteAsync(id);
+        this.AddAlertSuccess("Publicação removida com sucesso!");
+        
+        return Json(new {url = "Index"});
+    }
+
+    [HttpGet("ler-publicacao/{id}")]
+    public async Task<IActionResult> LerPublicacao(Guid id)
+    {
+        var publicacao = _mapper.Map<PublicacaoResponseModel>(await _publicacaoRepository.GetAsync(id));
+        return View(publicacao);
     }
     
     private async Task<string> UpdateFile(IFormFile file, string? existingFile = null)

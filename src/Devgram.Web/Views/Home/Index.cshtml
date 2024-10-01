@@ -20,7 +20,9 @@
                 <p class="card-description">@publicacao.Descricao.Truncate(200)</p>
             </div>
             <div class="card-footer">
-                <button class="btn">Ler Mais</button>
+                <a asp-controller="Publicacao" asp-action="LerPublicacao" asp-route-id="@publicacao.Id">
+                    <button class="btn">Ler Mais</button>
+                </a>
             </div>
         </div>
     }

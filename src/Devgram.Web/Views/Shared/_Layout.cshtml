@@ -12,14 +12,19 @@
     <link rel="stylesheet" href="~/css/components/header.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/components/input.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/components/button.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/components/modal.css" asp-append-version="true"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet"/>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
 <div class="alert-container">
-<alert></alert>
+    <alert></alert>
 </div>
+
+<div id="modal" class="modal fade" role="dialog">
+</div>
+
 @RenderBody()
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

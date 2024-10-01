@@ -1,12 +1,4 @@
-.btn-outline-purple {
-    border: 0.09375rem solid #E7E7E7;
-}
-
-.btn-outline-purple:hover {
-    background-color: white;
-}
-
-.btn-outline-orange {
+.btn-outline-orange,.btn-outline-red, .btn-outline-purple{
     border: 0.09375rem solid #E7E7E7;
 }
 
@@ -16,8 +8,15 @@
     border: 1px solid white;
 }
 
+.btn-outline-red:hover {
+    background-color: var(--red);
+    color: white;
+    border: 1px solid white;
+}
+
 .btn-outline-purple,
-.btn-outline-orange {
+.btn-outline-orange,
+.btn-outline-red{
     border-radius: 4px;
     background-color: transparent;
     padding: calc(1rem - 0.09375rem) 2.25rem;
@@ -27,7 +26,6 @@
     gap: 1rem;
     transition: all 500ms;
 }
-
 
 
 .btn-outline-purple .btn-label,

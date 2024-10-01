@@ -1,0 +1,54 @@
+@using Devgram.ViewModel
+
+@section Head {
+    <link rel="stylesheet" href="~/css/pages/post.css" asp-append-version="true"/>
+    <title>Devgram • Publicação</title>
+}
+
+@model PublicacaoResponseModel 
+
+<vc:header-component></vc:header-component>
+
+<div class="global-container">
+    <div class="mb-1 d-flex justify-content-center">
+        <img src="@Model.Logo" id="image-preview-model" class="image-preview" alt="Pré-visualização da Imagem"/>
+    </div>
+
+    <div class="title">
+        <p>@Model.Titulo</p>
+    </div>
+
+    <div class="ler-descricao">
+        <p>@Model.Descricao</p>
+    </div>
+
+    <div class="form-group mb-1">
+        <label>Faça um comentário</label>
+        <textarea rows="8"></textarea>
+    </div>
+    <div class="d-flex justify-content-end">
+        <button class="btn-outline-orange">Comentar</button>
+    </div>
+
+    @if (Model.Comentarios.Count > 0)
+    {
+        <div class="comentario-content">
+            <div class="title mt-8">
+                <p>Comentários</p>
+            </div>
+
+            @foreach (var comentario in Model.Comentarios)
+            {
+                <div class="comentario-descricao">
+                    <p>@comentario.Usuario.Nome </p>
+                    <p>@comentario.Descricao</p>
+                </div>
+            }
+        </div>
+    }
+  
+
+    <div class="d-flex justify-content-end mt-3">
+        <a asp-action="Index" class="btn-outline-purple">Voltar</a>
+    </div>
+</div>

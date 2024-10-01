@@ -1,0 +1,47 @@
+@model Devgram.ViewModel.PublicacaoResponseModel
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Remover publicação</h2>
+        </div>
+        <div class="modal-body">
+            <p class="mb-3">Você tem certeza de que deseja remover esta publicação? Esta ação não poderá ser desfeita.</p>
+            <p>
+                <strong>Título da publicação:</strong> <em>@Model.Titulo</em>
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button id="voltar" class="btn-outline-purple me-10px" type="button">
+                Cancelar
+            </button>
+            <button id="remover" class="btn-outline-red">
+                Remover
+                <span class="material-icons">delete</span>
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $("#voltar").click(function () {
+        document.getElementById("modal").style.display = 'none';
+    });
+
+    $("#remover").click(function () {
+        $.ajax({
+            url: "@Url.Action("ConfirmarDeletarPublicacao", "Publicacao", new { id = @Model.Id })",
+            data: {},
+            type: "Delete",
+            success: function (result) {
+                document.getElementById("modal").style.display = 'none';
+                window.location.href = "/publicacao";
+            },
+            error: function (result) {
+                window.alert("This is an unhandled exception. ");
+            }
+        });
+    });
+
+</script>

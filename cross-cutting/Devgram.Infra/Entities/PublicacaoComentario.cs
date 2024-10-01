@@ -33,7 +33,7 @@
         public virtual Usuario? Usuario { get; private set; }
 
         public virtual ICollection<PublicacaoComentario>? Respostas { get; private set; }
-
+        
         public void Atualizar(PublicacaoComentario publicacaoComentario)
         {
             Descricao = publicacaoComentario.Descricao;

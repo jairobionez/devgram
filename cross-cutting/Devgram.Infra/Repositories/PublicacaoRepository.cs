@@ -26,6 +26,8 @@ public class PublicacaoRepository
     {
         return await _context.Set<Publicacao>()
             .Include(p => p.Comentarios)!
+                .ThenInclude(p => p.Usuario)
+            .Include(p => p.Comentarios)
                 .ThenInclude(p => p.Respostas)
             .FirstOrDefaultAsync(p => p.Id == id);
     }
@@ -50,6 +52,13 @@ public class PublicacaoRepository
         entity.Atualizar(publicacao);
         
         _context.Set<Publicacao>().Update(entity);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteAsync(Guid id)
+    {
+        var publicacao = await GetAsync(id);
+        _context.Set<Publicacao>().Remove(publicacao);
         await _context.SaveChangesAsync();
     }
 }
