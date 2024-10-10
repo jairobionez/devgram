@@ -28,7 +28,9 @@ namespace Devgram.Api
         {
             var conn = Environment.GetEnvironmentVariable("DB_CONN") ?? Configuration.GetConnectionString("DefaultConnection");
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            services.AddSwaggerConfig();
+            services.AddAutoMapper(typeof(Startup));
+            services.AddDependencyConfig();
             services.AddApiConfig(Configuration);
             services.AddIdentityConfig(Configuration);
         }
@@ -36,11 +38,7 @@ namespace Devgram.Api
         public void Configure(WebApplication app, IWebHostEnvironment env)
         {
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            app.UseSwaggerConfig();
 
             app.UseHttpsRedirection();
             app.UseApiConfig(env);

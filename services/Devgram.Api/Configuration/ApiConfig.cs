@@ -11,10 +11,10 @@ namespace Devgram.Api.Configuration
     {
         public static void AddApiConfig(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddMvc(options =>
-            {
-                options.MaxModelBindingCollectionSize = int.MaxValue;
-            });
+            // services.AddMvc(options =>
+            // {
+            //     options.MaxModelBindingCollectionSize = int.MaxValue;
+            // });
 
             // var conn = Environment.GetEnvironmentVariable("DB_CONN") ?? configuration.GetConnectionString("DefaultConnection");
             var conn = configuration["DB_CONN"];

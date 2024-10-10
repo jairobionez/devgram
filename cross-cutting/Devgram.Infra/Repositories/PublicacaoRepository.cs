@@ -8,11 +8,13 @@ public class PublicacaoRepository
 {
     private readonly DbContext _context;
     private readonly IAspnetUser _aspnetUser;
+    private readonly Notifiable _notifiable;
 
-    public PublicacaoRepository(DbContext context, IAspnetUser aspnetUser)
+    public PublicacaoRepository(DbContext context, IAspnetUser aspnetUser, Notifiable notifiable)
     {
         _context = context;
         _aspnetUser = aspnetUser;
+        _notifiable = notifiable;
     }
 
     public async Task<IQueryable<Publicacao>> GetAsync()
@@ -34,6 +36,9 @@ public class PublicacaoRepository
 
     public async Task<Guid> InsertAsync(Publicacao publicacao)
     {
+        if (!PossuiPermissao(publicacao.UsuarioId))
+            return Guid.Empty;
+        
         await _context.Set<Publicacao>().AddAsync(publicacao);
         await _context.SaveChangesAsync();
         
@@ -49,6 +54,10 @@ public class PublicacaoRepository
     public async Task UpdateAsync(Guid id, Publicacao publicacao)
     {
         var entity = await GetAsync(id);
+        
+        if (!PossuiPermissao(publicacao.UsuarioId))
+            return;
+        
         entity.Atualizar(publicacao);
         
         _context.Set<Publicacao>().Update(entity);
@@ -58,7 +67,24 @@ public class PublicacaoRepository
     public async Task DeleteAsync(Guid id)
     {
         var publicacao = await GetAsync(id);
+
+        if (!PossuiPermissao(publicacao.UsuarioId))
+            return;
+        
         _context.Set<Publicacao>().Remove(publicacao);
         await _context.SaveChangesAsync();
+    }
+
+    private bool PossuiPermissao(Guid usuarioItemId)
+    {
+        var role = _aspnetUser.GetUserRole();
+        var usuarioId = _aspnetUser.GetUserId();
+        if (role != nameof(PerfilUsuarioEnum.ADMIN) && usuarioId != usuarioItemId)
+        {
+            _notifiable.AddNotification("Não foi possível realizar a ação desejada, privilégios insuficientes!");
+            return false;
+        }
+        
+        return true;
     }
 }

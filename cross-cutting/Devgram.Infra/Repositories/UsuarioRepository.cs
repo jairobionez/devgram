@@ -51,4 +51,15 @@ public class UsuarioRepository
         
         return await Task.FromResult(resultado);
     }
+    
+    public async Task<Publicacao?> GetPublicacaoAsync(Guid publicacaoId)
+    {
+        var usuarioId =_aspnetUser.GetUserId();
+        
+        var resultado = await _context.Set<Publicacao>()
+            .AsNoTracking()
+            .FirstOrDefaultAsync(p => p.UsuarioId == usuarioId && p.Id == publicacaoId);
+        
+        return resultado;
+    }
 }

@@ -1,61 +1,49 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Devgram.Auth.Extensions;
+using Devgram.Infra.Entities;
+using Devgram.Infra.Repositories;
 using Devgram.ViewModel;
 using Devgram.ViewModel.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using Devgram.Auth.Extensions;
-using Devgram.Infra.Entities;
-using Devgram.Infra.Repositories;
-using Devgram.Web.Extensions;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
+using Microsoft.IdentityModel.Tokens;
 
-namespace Devgram.Web.Controllers;
+namespace Devgram.Api.Controllers;
 
-[Route("auth")]
+[ApiController]
+[Route("api/auth")]
 public class AuthController : Controller
 {
-    private readonly ILogger<AuthController> _logger;
+
     private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly AppSettings _appSettings;
     private readonly UsuarioRepository _usuarioRepository;
     private readonly IPasswordHasher<IdentityUser> _passwordHasher;
-    private readonly IHttpContextAccessor _httpContextAccessor;
-
-    public AuthController(ILogger<AuthController> logger, UserManager<IdentityUser> userManager,
-        SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager,
-        IOptions<AppSettings> appSettings, UsuarioRepository usuarioRepository, IHttpContextAccessor httpContextAccessor, IPasswordHasher<IdentityUser> passwordHasher)
+    
+    public AuthController(
+        UserManager<IdentityUser> userManager, 
+        SignInManager<IdentityUser> signInManager, 
+        RoleManager<IdentityRole> roleManager, 
+        IOptions<AppSettings> appSettings, 
+        UsuarioRepository usuarioRepository, IPasswordHasher<IdentityUser> passwordHasher)
     {
-        _logger = logger;
         _userManager = userManager;
         _signInManager = signInManager;
         _roleManager = roleManager;
-        _usuarioRepository = usuarioRepository;
-        _httpContextAccessor = httpContextAccessor;
-        _passwordHasher = passwordHasher;
         _appSettings = appSettings.Value;
+        _usuarioRepository = usuarioRepository;
+        _passwordHasher = passwordHasher;
     }
     
-    public IActionResult Index()
-    {
-        return View();
-    }
-
-    [HttpGet("login")]
-    public IActionResult Login()
-    {
-        if(User.Identity.IsAuthenticated) 
-            return RedirectToAction("Index", "Home");
-        return View();
-    }
-
     [HttpPost("login")]
-    [ValidateAntiForgeryToken]
+    [ProducesResponseType(typeof(IEnumerable<UsuarioLoginResponseModel>), 200)]
+    [ProducesResponseType(typeof(string), 400)]
+    [ProducesResponseType(typeof(object), 500)]
     public async Task<IActionResult> LoginAsync(LoginViewModel model)
     {
         if (ModelState.IsValid)
@@ -66,32 +54,13 @@ public class AuthController : Controller
             if (result.Succeeded)
             {
                 var token = await GerarJwt(model.Email, string.Empty);
-                Response.Cookies.Append("Token", token.AccessToken, new CookieOptions
-                {
-                    HttpOnly = true, 
-                    Secure = true,   
-                    SameSite = SameSiteMode.Strict, 
-                });
-                
-                this.AddAlertSuccess("Bem-vindo(a) ao Devgram!!");
-                return RedirectToAction("Index", "Home");
+                return Ok(new {sucesso = true, token = token});
             }
-
-            ModelState.AddModelError(string.Empty, "Email ou senha incorretos.");
         }
 
-        return View(model);
+        return BadRequest(new { sucesso = false, message = "E-mail ou senha incorretos" });
     }
-
-    [HttpGet("nova-conta")]
-    public IActionResult NovaConta()
-    {
-        if(User.Identity.IsAuthenticated) 
-            return RedirectToAction("Index", "Home");
-        
-        return View();
-    }
-
+    
     [HttpPost("nova-conta")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> NovaContaAsync(NovaContaViewModel model)
@@ -111,24 +80,15 @@ public class AuthController : Controller
                 
                 var usuario = new Usuario(Guid.Parse(identityUser.Id), model.Nome, model.Sobrenome, model.Email);
                 await _usuarioRepository.CreateAsync(usuario);
-                
-                this.AddAlertSuccess("Conta criada com sucesso!");
-                
-                return RedirectToAction("Login", "Auth");
+
+
+                return Ok(new { sucesso = true });
             }
-
             var erros = result.Errors.Select(x => x.Description).ToArray();
-            ModelState.AddModelError(string.Empty, string.Join('\n', erros));
+            return BadRequest(new { sucesso = false, erros = erros });
         }
-
-        return View(model);
-    }
-
-    [HttpGet("logout")]
-    public IActionResult LogoutAsync()
-    {
-        Response.Cookies.Delete("Token");
-        return RedirectToAction("Index", "Home");
+        
+        return BadRequest(new {sucesso = false, erros = ModelState});
     }
     
     private async Task CreateRoles()
