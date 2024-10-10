@@ -93,7 +93,7 @@ A estrutura do projeto é organizada da seguinte forma:
 
 A documentação da API está disponível através do Swagger. Após iniciar a API, acesse a documentação em:
 
-http://localhost:5001/swagger
+[https://localhost:7168/swagger/index.html]
 
 ## **9. Avaliação**
 
