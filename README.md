@@ -35,14 +35,12 @@ O projeto consiste em:
 
 A estrutura do projeto é organizada da seguinte forma:
 
-- services/
-  - Devgram.Api/ - API RESTful
 - src/
   - Devgram.Web/ - Projeto MVC
+  - Devgram.Api/ - API RESTful
 - cross-cutting
-  - Devgram.Infra/ - Modelos de Dados e Configuração do EF Core
   - Devgram.Auth/ - Configurações de autenticação compartilhadas para o projeto MVC e API
-  - Devgram.ViewNodel/ - Views compartilhadas para o projeto MVC e API
+
  
 - README.md - Arquivo de Documentação do Projeto
 - FEEDBACK.md - Arquivo para Consolidação dos Feedbacks
@@ -80,7 +78,7 @@ A estrutura do projeto é organizada da seguinte forma:
    - Acesse a aplicação em: [https://localhost:7294/home]
 
 4. **Executar a API:**
-   - `cd services/Devgram.Api/`
+   - `cd src/Devgram.Api/`
    - `dotnet run`
    - Acesse a documentação da API em: [https://localhost:7168/swagger/index.html]
 
