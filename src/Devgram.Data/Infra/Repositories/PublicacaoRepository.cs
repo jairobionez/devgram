@@ -4,13 +4,13 @@ using Devgram.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Devgram.Data.Infra;
-public class PublicacaoRepository
+public class PublicacaoRepository : IPublicacaoRepository
 {
     private readonly DevgramDbContext _context;
     private readonly IAspnetUser _aspnetUser;
-    private readonly Notifiable _notifiable;
+    private readonly INotifiable _notifiable;
 
-    public PublicacaoRepository(DevgramDbContext context, IAspnetUser aspnetUser, Notifiable notifiable)
+    public PublicacaoRepository(DevgramDbContext context, IAspnetUser aspnetUser, INotifiable notifiable)
     {
         _context = context;
         _aspnetUser = aspnetUser;
@@ -36,9 +36,6 @@ public class PublicacaoRepository
 
     public async Task<Guid> InsertAsync(Publicacao publicacao)
     {
-        if (!PossuiPermissao(publicacao.UsuarioId))
-            return Guid.Empty;
-        
         await _context.Set<Publicacao>().AddAsync(publicacao);
         await _context.SaveChangesAsync();
         
@@ -55,9 +52,6 @@ public class PublicacaoRepository
     {
         var entity = await GetAsync(id);
         
-        if (!PossuiPermissao(publicacao.UsuarioId))
-            return;
-        
         entity.Atualizar(publicacao);
         
         _context.Set<Publicacao>().Update(entity);
@@ -68,23 +62,7 @@ public class PublicacaoRepository
     {
         var publicacao = await GetAsync(id);
 
-        if (!PossuiPermissao(publicacao.UsuarioId))
-            return;
-        
         _context.Set<Publicacao>().Remove(publicacao);
         await _context.SaveChangesAsync();
-    }
-
-    private bool PossuiPermissao(Guid usuarioItemId)
-    {
-        var role = _aspnetUser.GetUserRole();
-        var usuarioId = _aspnetUser.GetUserId();
-        if (role != nameof(PerfilUsuarioEnum.ADMIN) && usuarioId != usuarioItemId)
-        {
-            _notifiable.AddNotification("Não foi possível realizar a ação desejada, privilégios insuficientes!");
-            return false;
-        }
-        
-        return true;
     }
 }

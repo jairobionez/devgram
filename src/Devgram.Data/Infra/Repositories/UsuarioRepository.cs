@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Devgram.Data.Infra;
 
-public class UsuarioRepository
+public class UsuarioRepository : IUsuarioRepository
 {
     private readonly DevgramDbContext _context;
     private readonly IAspnetUser _aspnetUser;
@@ -38,7 +38,18 @@ public class UsuarioRepository
         
         return await Task.FromResult(resultado);
     }
-    
+
+    public async Task<IQueryable<Publicacao>> GetAllPublicacoesAsync(string termo)
+    {
+
+        var resultado = _context.Set<Publicacao>()
+            .AsNoTracking()
+            .Where(p => (string.IsNullOrEmpty(termo) || p.Titulo.ToUpper().Contains(termo.ToUpper())) ||
+                        (string.IsNullOrEmpty(termo) || p.Descricao.ToUpper().Contains(termo.ToUpper())));
+
+        return await Task.FromResult(resultado);
+    }
+
     public async Task<IQueryable<Publicacao>> GetPublicacoesAsync(string termo)
     {
         var usuarioId =_aspnetUser.GetUserId();

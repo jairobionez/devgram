@@ -9,10 +9,10 @@ public static class DependencyConfig
     public static IServiceCollection AddDependencyConfig(this IServiceCollection services)
     {
         services.AddHttpContextAccessor();
-        services.AddScoped<UsuarioRepository>();
-        services.AddScoped<PublicacaoRepository>();
+        services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+        services.AddScoped<IPublicacaoRepository, PublicacaoRepository>();
         services.AddScoped<IAspnetUser, AspnetUser>();
-        services.AddScoped<Notifiable>();
+        services.AddScoped<INotifiable, Notifiable>();
 
         return services;
     }

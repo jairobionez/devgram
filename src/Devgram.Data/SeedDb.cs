@@ -2,6 +2,7 @@
 
 using Devgram.Data.Entities;
 using Devgram.Data.Enums;
+using Devgram.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,8 +24,8 @@ public static class SeedDb
             var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
             var passwordHash = serviceScope.ServiceProvider.GetRequiredService<IPasswordHasher<IdentityUser>>();
             var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var usuarioRepository = serviceScope.ServiceProvider.GetRequiredService<UsuarioRepository>();
-            var publicacaoRepository = serviceScope.ServiceProvider.GetRequiredService<PublicacaoRepository>();
+            var usuarioRepository = serviceScope.ServiceProvider.GetRequiredService<IUsuarioRepository>();
+            var publicacaoRepository = serviceScope.ServiceProvider.GetRequiredService<IPublicacaoRepository>();
 
             var usuarioDb = userManager.FindByEmailAsync("jairo@devgram.com.br").Result;
 

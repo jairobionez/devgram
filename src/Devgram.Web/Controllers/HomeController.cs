@@ -1,5 +1,6 @@
 using AutoMapper;
 using Devgram.Data.Infra;
+using Devgram.Data.Interfaces;
 using Devgram.Data.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +10,10 @@ namespace Devgram.Web.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly PublicacaoRepository _publicacaoRepository;
+    private readonly IPublicacaoRepository _publicacaoRepository;
     private IMapper _mapper;
 
-    public HomeController(ILogger<HomeController> logger, PublicacaoRepository publicacaoRepository, IMapper mapper)
+    public HomeController(ILogger<HomeController> logger, IPublicacaoRepository publicacaoRepository, IMapper mapper)
     {
         _logger = logger;
         _publicacaoRepository = publicacaoRepository;

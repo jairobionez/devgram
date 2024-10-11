@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Devgram.Auth.Configuration;
 using Devgram.Data.Infra;
 using Microsoft.AspNetCore.Http.Features;
@@ -23,15 +24,12 @@ namespace Devgram.Web.Configuration
             services.AddDbContext<DevgramDbContext>(options => { options.UseSqlite(conn); });
 
             services.AddControllersWithViews()
-                .AddJsonOptions(options =>
-                {
-                   options.JsonSerializerOptions.IncludeFields = true;
-                })
                 .AddRazorOptions(options => { options.ViewLocationFormats.Add("/Shared/Components/{2}/{0}.cshtml"); });
 
             services.Configure<JsonSerializerOptions>(options =>
             {
                 options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                options.IncludeFields = true;
             });
 
             services.AddRazorPages().AddRazorRuntimeCompilation();

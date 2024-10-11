@@ -1,6 +1,7 @@
 using AutoMapper;
 using Devgram.Data.Entities;
 using Devgram.Data.Infra;
+using Devgram.Data.Interfaces;
 using Devgram.Data.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,12 @@ namespace Devgram.Api.Controllers;
 [Route("api/usuario")]
 public class UsuarioController: Controller
 {
-    private readonly PublicacaoRepository _publicacaoRepository;
-    private readonly UsuarioRepository _usuarioRepository;
+    private readonly IPublicacaoRepository _publicacaoRepository;
+    private readonly IUsuarioRepository _usuarioRepository;
     private readonly IMapper _mapper;
-    private readonly Notifiable _notifiable;
+    private readonly INotifiable _notifiable;
 
-    public UsuarioController(PublicacaoRepository publicacaoRepository, UsuarioRepository usuarioRepository, IMapper mapper, Notifiable notifiable)
+    public UsuarioController(IPublicacaoRepository publicacaoRepository, IUsuarioRepository usuarioRepository, IMapper mapper, INotifiable notifiable)
     {
         _publicacaoRepository = publicacaoRepository;
         _usuarioRepository = usuarioRepository;

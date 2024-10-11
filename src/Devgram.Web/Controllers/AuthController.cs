@@ -11,6 +11,7 @@ using Devgram.Data.Infra;
 using Devgram.Data.ViewModels;
 using Devgram.Web.Extensions;
 using Microsoft.Extensions.Options;
+using Devgram.Data.Interfaces;
 
 namespace Devgram.Web.Controllers;
 
@@ -22,13 +23,13 @@ public class AuthController : Controller
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly AppSettings _appSettings;
-    private readonly UsuarioRepository _usuarioRepository;
+    private readonly IUsuarioRepository _usuarioRepository;
     private readonly IPasswordHasher<IdentityUser> _passwordHasher;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     public AuthController(ILogger<AuthController> logger, UserManager<IdentityUser> userManager,
         SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager,
-        IOptions<AppSettings> appSettings, UsuarioRepository usuarioRepository, IHttpContextAccessor httpContextAccessor, IPasswordHasher<IdentityUser> passwordHasher)
+        IOptions<AppSettings> appSettings, IUsuarioRepository usuarioRepository, IHttpContextAccessor httpContextAccessor, IPasswordHasher<IdentityUser> passwordHasher)
     {
         _logger = logger;
         _userManager = userManager;

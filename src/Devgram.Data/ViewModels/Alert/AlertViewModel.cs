@@ -4,7 +4,10 @@ namespace Devgram.Data.ViewModels;
 
 public class AlertViewModel
 {
+    [JsonInclude]
     public string Message;
+
+    [JsonInclude]
     public string Type;
 
     [JsonConstructor]

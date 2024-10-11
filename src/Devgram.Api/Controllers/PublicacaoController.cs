@@ -1,4 +1,5 @@
 using Devgram.Data.Infra;
+using Devgram.Data.Interfaces;
 using Devgram.Data.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +10,9 @@ namespace Devgram.Api.Controllers;
 [Route("api/publicacao")]
 public class PublicacaoController : Controller
 {
-    private readonly PublicacaoRepository _publicacaoRepository;
+    private readonly IPublicacaoRepository _publicacaoRepository;
 
-    public PublicacaoController(PublicacaoRepository publicacaoRepository)
+    public PublicacaoController(IPublicacaoRepository publicacaoRepository)
     {
         _publicacaoRepository = publicacaoRepository;
     }

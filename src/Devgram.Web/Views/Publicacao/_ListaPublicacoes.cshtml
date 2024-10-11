@@ -1,40 +1,47 @@
+@using Devgram.Data.Interfaces
 @using Devgram.Web.Extensions
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@inject IAspnetUser _aspnetUser;
 
 @model List<Devgram.Data.ViewModels.PublicacaoResponseModel>
 
 <table>
     <thead>
-    <tr>
-        <th></th>
-        <th>Título</th>
-        <th>Descrição</th>
-        <th>Data de Criação</th>
-        <th>Última Atualização</th>
-        <th class="acao">Ações</th>
-    </tr>
+        <tr>
+            <th></th>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Data de Criação</th>
+            <th>Última Atualização</th>
+            <th class="acao">Ações</th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var publicacao in Model)
-    {
-        <tr>
-            <td>
-                <img class="img-listagem" src="@publicacao.Logo" width="200"/>
-            </td>
-            <td>@publicacao.Titulo</td>
-            <td class="desricao">
-                @publicacao.Descricao.Truncate(200)
-            </td>
-            <td>@publicacao.DataCriacao!.Value.ToString("dd/MM/yyyy")</td>
-            <td>@(publicacao.DataAtualizacao.HasValue ? publicacao.DataAtualizacao!.Value.ToString("dd/MM/yyyy") : "-")</td>
-            <td>
-                <a asp-action="EditarPublicacao" asp-route-id="@publicacao.Id">
-                    <span class="material-icons cursor-pointer">edit</span>
-                </a>
-                <span data-id="@publicacao.Id" class="delete material-icons cursor-pointer cor-vermelha">delete</span>
-            </td>
-        </tr>
-    }
+        @foreach (var publicacao in Model)
+        {
+            <tr>
+                <td>
+                    <img class="img-listagem" src="@publicacao.Logo" width="200" />
+                </td>
+                <td>@publicacao.Titulo</td>
+                <td class="desricao">
+                    @publicacao.Descricao.Truncate(200)
+                </td>
+                <td>@publicacao.DataCriacao!.Value.ToString("dd/MM/yyyy")</td>
+                <td>@(publicacao.DataAtualizacao.HasValue ? publicacao.DataAtualizacao!.Value.ToString("dd/MM/yyyy") : "-")</td>
+                <td>
+                    @if (_aspnetUser.GetUserId() == publicacao.UsuarioId)
+                    {
+                        <a asp-action="EditarPublicacao" asp-route-id="@publicacao.Id">
+                            <span class="material-icons cursor-pointer">edit</span>
+                        </a>
+                    }
+
+                    <span data-id="@publicacao.Id" class="delete material-icons cursor-pointer cor-vermelha">delete</span>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 

@@ -5,6 +5,7 @@ using Devgram.Auth.Extensions;
 using Devgram.Data.Entities;
 using Devgram.Data.Enums;
 using Devgram.Data.Infra;
+using Devgram.Data.Interfaces;
 using Devgram.Data.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -22,15 +23,15 @@ public class AuthController : Controller
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly AppSettings _appSettings;
-    private readonly UsuarioRepository _usuarioRepository;
+    private readonly IUsuarioRepository _usuarioRepository;
     private readonly IPasswordHasher<IdentityUser> _passwordHasher;
     
     public AuthController(
         UserManager<IdentityUser> userManager, 
         SignInManager<IdentityUser> signInManager, 
         RoleManager<IdentityRole> roleManager, 
-        IOptions<AppSettings> appSettings, 
-        UsuarioRepository usuarioRepository, IPasswordHasher<IdentityUser> passwordHasher)
+        IOptions<AppSettings> appSettings,
+        IUsuarioRepository usuarioRepository, IPasswordHasher<IdentityUser> passwordHasher)
     {
         _userManager = userManager;
         _signInManager = signInManager;

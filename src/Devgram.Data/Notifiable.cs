@@ -1,6 +1,8 @@
+using Devgram.Data.Interfaces;
+
 namespace Devgram.Data.Infra;
 
-public class Notifiable
+public class Notifiable : INotifiable
 {
     private List<string> _notifications;
 
