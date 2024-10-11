@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\cross-cutting\Devgram.Auth\Devgram.Auth.csproj" />
-    <ProjectReference Include="..\..\cross-cutting\Devgram.ViewModel\Devgram.ViewModel.csproj" />
   </ItemGroup>
 
   <ItemGroup>

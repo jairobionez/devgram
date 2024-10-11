@@ -1,10 +1,7 @@
-using System.Diagnostics;
 using AutoMapper;
-using Devgram.Infra.Repositories;
-using Devgram.ViewModel;
+using Devgram.Data.Infra;
+using Devgram.Data.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Devgram.Web.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Devgram.Web.Controllers;
 

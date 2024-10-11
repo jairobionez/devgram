@@ -1,7 +1,6 @@
 using Devgram.Auth.Extensions;
-using Devgram.Infra;
-using Devgram.Infra.Interfaces;
-using Devgram.Infra.Repositories;
+using Devgram.Data.Infra;
+using Devgram.Data.Interfaces;
 
 namespace Devgram.Web.Configuration;
 

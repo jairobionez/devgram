@@ -1,5 +1,5 @@
 using Devgram.Auth.Configuration;
-using Devgram.Infra;
+using Devgram.Data.Infra;
 using Devgram.Web.Configuration;
 using Devgram.Web.Interfaces;
 

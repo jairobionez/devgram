@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using Devgram.Infra.Interfaces;
+using Devgram.Data.Interfaces;
 using Microsoft.AspNetCore.Http;
 
 namespace Devgram.Auth.Extensions;

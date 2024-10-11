@@ -1,8 +1,8 @@
-using Devgram.ViewModel.Alert;
+using System.Text.Json;
+using Devgram.Data.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Newtonsoft.Json;
 
 namespace Devgram.Web.TagHelpers;
 
@@ -20,9 +20,10 @@ public class AlertTagHelper : TagHelper
         var alertId = Guid.NewGuid();
 
         if (TempData[AlertKey] == null)
-            TempData[AlertKey] = JsonConvert.SerializeObject(new HashSet<AlertViewModel>());
+            TempData[AlertKey] = JsonSerializer.Serialize(new HashSet<AlertViewModel>());
 
-        var alerts = JsonConvert.DeserializeObject<ICollection<AlertViewModel>>(TempData[AlertKey].ToString());
+        var alertTemp = TempData[AlertKey].ToString();
+        var alerts = JsonSerializer.Deserialize<ICollection<AlertViewModel>>(alertTemp);
 
         var html = string.Empty;
 

@@ -1,6 +1,6 @@
 using System.Text;
 using Devgram.Auth.Extensions;
-using Devgram.Infra;
+using Devgram.Data.Infra;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -19,7 +19,7 @@ namespace Devgram.Auth.Configuration
             
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddErrorDescriber<IdentityMensagensPortugues>()
-                .AddEntityFrameworkStores<DbContext>()
+                .AddEntityFrameworkStores<DevgramDbContext>()
                 .AddDefaultTokenProviders();
 
             var appSettingsSection = configuration.GetSection("AppSettings");

@@ -1,6 +1,6 @@
 using AutoMapper;
-using Devgram.Infra.Entities;
-using Devgram.ViewModel;
+using Devgram.Data.Entities;
+using Devgram.Data.ViewModels;
 
 namespace Devgram.Web.Configuration;
 

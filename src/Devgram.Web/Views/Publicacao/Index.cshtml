@@ -1,12 +1,13 @@
-@using Devgram.ViewModel
 @using Devgram.Web.Extensions
+@using Devgram.Web.ViewComponents
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 
 @section Head {
     <link rel="stylesheet" href="~/css/pages/post.css" asp-append-version="true"/>
     <title>Devgram • Publicações</title>
 }
 
-@model List<PublicacaoResponseModel> 
+@model List<Devgram.Data.ViewModels.PublicacaoResponseModel> 
 
 <vc:header-component></vc:header-component>
 

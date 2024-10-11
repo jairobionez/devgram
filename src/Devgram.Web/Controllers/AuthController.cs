@@ -1,17 +1,16 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Devgram.ViewModel;
-using Devgram.ViewModel.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Devgram.Auth.Extensions;
-using Devgram.Infra.Entities;
-using Devgram.Infra.Repositories;
+using Devgram.Data.Entities;
+using Devgram.Data.Enums;
+using Devgram.Data.Infra;
+using Devgram.Data.ViewModels;
 using Devgram.Web.Extensions;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 
 namespace Devgram.Web.Controllers;
 

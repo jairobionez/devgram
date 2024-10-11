@@ -1,9 +1,8 @@
 using AutoMapper;
-using Devgram.Infra.Repositories;
-using Devgram.ViewModel;
+using Devgram.Data.Entities;
+using Devgram.Data.Infra;
+using Devgram.Data.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
-using Devgram.Infra.Entities;
 using Devgram.Web.Extensions;
 
 namespace Devgram.Web.Controllers;
