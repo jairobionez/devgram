@@ -77,12 +77,12 @@ A estrutura do projeto é organizada da seguinte forma:
 3. **Executar a Aplicação MVC:**
    - `cd src/Devgram.Web/`
    - `dotnet run`
-   - Acesse a aplicação em: http://localhost:5000
+   - Acesse a aplicação em: [https://localhost:7294/home]
 
 4. **Executar a API:**
    - `cd services/Devgram.Api/`
    - `dotnet run`
-   - Acesse a documentação da API em: http://localhost:5001/swagger
+   - Acesse a documentação da API em: [https://localhost:7168/swagger/index.html]
 
 ## **7. Instruções de Configuração**
 
@@ -93,7 +93,7 @@ A estrutura do projeto é organizada da seguinte forma:
 
 A documentação da API está disponível através do Swagger. Após iniciar a API, acesse a documentação em:
 
-http://localhost:5001/swagger
+[https://localhost:7168/swagger/index.html]
 
 ## **9. Avaliação**
 
