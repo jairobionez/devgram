@@ -38,6 +38,7 @@ A estrutura do projeto é organizada da seguinte forma:
 - src/
   - Devgram.Web/ - Projeto MVC
   - Devgram.Api/ - API RESTful
+  - Devgram.Data/ - Controle de infra, entidades e interfaces
 - cross-cutting
   - Devgram.Auth/ - Configurações de autenticação compartilhadas para o projeto MVC e API
 
