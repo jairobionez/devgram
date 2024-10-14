@@ -13,6 +13,7 @@ namespace Devgram.Data.Interfaces
         Task<Publicacao?> GetAsync(Guid id);
         Task<Guid> InsertAsync(Publicacao publicacao);
         Task InsertAsync(List<Publicacao> publicacoes);
+        Task<Publicacao> InsertCommentAsync(Guid publicacaoId, PublicacaoComentario comentario);
         Task UpdateAsync(Guid id, Publicacao publicacao);
         Task DeleteAsync(Guid id);
 

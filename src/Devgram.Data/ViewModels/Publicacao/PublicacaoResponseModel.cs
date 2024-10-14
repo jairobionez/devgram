@@ -21,9 +21,9 @@ public class PublicacaoComentarioResponseModel
     public Guid Id { get; set; }
     public string? Descricao { get; set; }
     public bool Editado { get; set; }
-    public Guid PublicacaoId { get; set; }
+    public Guid? PublicacaoId { get; set; }
     public Guid? UsuarioId { get; set; }
-    public UsuarioResponseModel Usuario { get; set; }
+    public UsuarioResponseModel? Usuario { get; set; }
     public DateTime? DataCriacao { get; set; }
     public DateTime? DataAtualizacao { get; set; }
     

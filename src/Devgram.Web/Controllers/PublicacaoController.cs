@@ -133,6 +133,15 @@ public class PublicacaoController : Controller
         return View(publicacao);
     }
 
+    [HttpPost("comentar/{id}")]
+    public async Task<IActionResult> ComentarPublicacao(Guid id, [FromBody] PublicacaoComentarioModel model)
+    {
+        var publicacao = await _publicacaoRepository.InsertCommentAsync(id, _mapper.Map<PublicacaoComentario>(model));
+        
+        this.AddAlertSuccess("Comentário adicionado com sucesso!");
+        return PartialView("_ListaComentarios", _mapper.Map<PublicacaoResponseModel>(publicacao));
+    }
+
     private async Task<string> UpdateFile(IFormFile file, string? existingFile = null)
     {
         string uploadsFolder = Path.Combine("wwwroot/publicacoes");

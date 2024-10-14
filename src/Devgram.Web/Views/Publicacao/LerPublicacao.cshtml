@@ -1,5 +1,7 @@
+@using Devgram.Data.Interfaces
 @using Devgram.Web.ViewComponents
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject IAspnetUser _aspnetUser;
 
 @section Head {
     <link rel="stylesheet" href="~/css/pages/post.css" asp-append-version="true"/>
@@ -23,33 +25,65 @@
         <p>@Model.Descricao</p>
     </div>
 
-    <div class="form-group mb-1">
-        <label>Faça um comentário</label>
-        <textarea rows="8"></textarea>
-    </div>
-    <div class="d-flex justify-content-end">
-        <button class="btn-outline-orange">Comentar</button>
+    <div id="lista-comentarios" class="mb-2">
+        <partial name="_ListaComentarios" model="Model"/>
     </div>
 
-    @if (Model.Comentarios.Count > 0)
+    @if (_aspnetUser.IsAuthenticated())
     {
-        <div class="comentario-content">
-            <div class="title mt-8">
-                <p>Comentários</p>
+        <form id="form-comentario">
+            <input id="usuarioId" name="usuarioId" value="@_aspnetUser.GetUserId()" type="hidden"/>
+            <div class="form-group mb-1">
+                <label>Faça um comentário</label>
+                <textarea id="descricao" name="descricao" rows="4"></textarea>
             </div>
-
-            @foreach (var comentario in Model.Comentarios)
-            {
-                <div class="comentario-descricao">
-                    <p>@comentario.Usuario.Nome </p>
-                    <p>@comentario.Descricao</p>
+            <div class="d-flex justify-content-between mb-2">
+                <div>
+                    <a asp-controller="Home" asp-action="Index" class="btn-outline-purple">Voltar</a>
                 </div>
-            }
+                <button type="submit" id="btn-comentar" class="btn-outline-orange">Comentar</button>
+            </div>
+        </form>
+    }
+    else
+    {
+        <div class="d-flex justify-content-center mb-2">
+            <a asp-controller="Home" asp-action="Index" class="btn-outline-purple">Voltar</a>
         </div>
     }
-  
 
-    <div class="d-flex justify-content-end mt-3">
-        <a asp-action="Index" class="btn-outline-purple">Voltar</a>
-    </div>
+
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#form-comentario").submit(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var formArray = $('#form-comentario').serializeArray(); // Serializa o formulário para uma array de pares name-value
+            var formData = {};
+
+            $.map(formArray, function(n, i){
+                formData[n['name']] = n['value'];
+            });
+
+            $.ajax({
+                url: "@Url.Action("ComentarPublicacao", "Publicacao", new { id = @Model.Id })",
+                data: JSON.stringify(formData),
+                contentType:'application/json',
+                type: "POST",
+                success: function (result) {
+                    $("#lista-comentarios").html("");
+                    $("#lista-comentarios").html(result);
+                    $("#descricao").val('');
+                },
+                error: function (result) {
+                    window.alert("This is an unhandled exception. ");
+                }
+            });
+        });
+    });
+    
+
+</script>

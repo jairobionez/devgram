@@ -44,6 +44,14 @@
             DataAtualizacao = DateTime.Now;
         }
 
+        public void AdicionarComentario(PublicacaoComentario publicacaoComentario)
+        {
+            if(Comentarios == null)
+                Comentarios = new List<PublicacaoComentario>();
+            
+            Comentarios.Add(publicacaoComentario);
+        }
+
         public void NovaPublicacao()
         {
             DataCriacao = DateTime.Now;

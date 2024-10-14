@@ -1,0 +1,46 @@
+@using Devgram.Data.Interfaces
+@model Devgram.Data.ViewModels.PublicacaoResponseModel 
+@inject IAspnetUser _aspnetUser;
+
+@if (Model?.Comentarios?.Count > 0)
+{
+    <div>
+        <div class="title mt-8">
+            <p>Comentários</p>
+        </div>
+
+        <div class="comentario-content">
+            @foreach (var comentario in Model.Comentarios)
+            {
+                <div class="comentario-descricao">
+                    <div class="d-flex justify-content-between mb-1">
+                        <p class="titulo">@comentario.Usuario.NomeCompleto </p>
+                        <div class="d-flex ">
+                            @if (comentario.Editado)
+                            {
+                                <p class="editado">Editado</p>
+                            }
+
+                            <p>@comentario.DataCriacao </p>
+
+                            @if (_aspnetUser.IsInRole("ADMIN") || comentario.UsuarioId == _aspnetUser.GetUserId())
+                            {
+                            <span data-id="@comentario.Id" class="delete material-icons cursor-pointer cor-vermelha">delete</span>
+                            }
+                        </div>
+                    </div>
+                    <p>@comentario.Descricao</p>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+<script>
+    $(".delete").click(function () {
+        var id = $(this).attr("data-id");
+        $("#modal").load("publicacao/remover-publicacao/" + id, function () {
+            document.getElementById("modal").style.display = 'block';
+        });
+    });
+</script>

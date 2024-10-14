@@ -64,3 +64,31 @@ li {
 .ler-descricao {
     margin: 3rem 0;
 }
+
+.comentario-content {
+    max-height: 20rem;
+    overflow: auto;
+}
+
+.comentario-descricao {
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #E7E7E7;
+    background-color: var(--white);
+}
+
+.comentario-descricao .titulo {
+    font-size: var(--size-20);
+    font-weight: bold;
+}
+
+.comentario-descricao .editado {
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+.comentario-descricao .delete {
+    font-size: var(--size-20);
+    margin-left: 1rem;
+}
