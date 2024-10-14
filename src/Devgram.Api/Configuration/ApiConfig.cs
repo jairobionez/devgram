@@ -1,3 +1,4 @@
+using Devgram.Api.Middlewares;
 using Devgram.Auth.Configuration;
 using Devgram.Data.Infra;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +9,7 @@ namespace Devgram.Api.Configuration
     {
         public static void AddApiConfig(this IServiceCollection services, IConfiguration configuration)
         {
-            // services.AddMvc(options =>
-            // {
-            //     options.MaxModelBindingCollectionSize = int.MaxValue;
-            // });
+            services.AddMvc();
 
             // var conn = Environment.GetEnvironmentVariable("DB_CONN") ?? configuration.GetConnectionString("DefaultConnection");
             var conn = configuration.GetConnectionString("DefaultConnection") ?? configuration["DB_CONN"];
@@ -42,8 +40,9 @@ namespace Devgram.Api.Configuration
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
+            
+            app.UseMiddleware(typeof(ExceptionMiddleware));
 
             app.UseCors("Total");
 

@@ -22,13 +22,6 @@ public class PublicacaoController : Controller
     [ProducesResponseType(typeof(object), 500)]
     public async Task<ActionResult> GetAllPublicacoesAsync()
     {
-        try
-        {
-            return Ok(await _publicacaoRepository.GetAsync());
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, ex.Message);
-        }
+        return Ok(await _publicacaoRepository.GetAsync());
     }
 }

@@ -41,7 +41,7 @@ namespace Devgram.Data.Entities
         public virtual ICollection<Publicacao> Publicacoes { get; private set; }
         public virtual ICollection<PublicacaoComentario> Comentarios { get; private set; }
 
-        public string NomeCompelto() => $"{Nome} {Sobrenome}";
+        public override string ToString() =>  $"{Nome} {Sobrenome}";
 
         public void Atualizar(Usuario usuario)
         {
