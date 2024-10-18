@@ -20,16 +20,17 @@ public class PublicacaoRepository : IPublicacaoRepository
     public async Task<IQueryable<Publicacao>> GetAsync()
     {
         var resultado = _context.Set<Publicacao>()
-                                                    .AsNoTracking();
+                                                    .AsNoTracking()
+                                                    .OrderByDescending(p => p.DataCriacao);
         return await Task.FromResult(resultado);
     }
     
     public async Task<Publicacao?> GetAsync(Guid id)
     {
         return await _context.Set<Publicacao>()
-            .Include(p => p.Comentarios)!
+            .Include(p => p.Comentarios.OrderByDescending(p => p.DataCriacao))!
                 .ThenInclude(p => p.Usuario)
-            .Include(p => p.Comentarios)
+            .Include(p => p.Comentarios.OrderByDescending(p => p.DataCriacao))
                 .ThenInclude(p => p.Respostas)
             .FirstOrDefaultAsync(p => p.Id == id);
     }
@@ -46,21 +47,6 @@ public class PublicacaoRepository : IPublicacaoRepository
     {
         await _context.Set<Publicacao>().AddRangeAsync(publicacoes);
         await _context.SaveChangesAsync();
-    }
-    
-    public async Task<Publicacao> InsertCommentAsync(Guid publicacaoId, PublicacaoComentario comentario)
-    {
-        var publicacao = await _context.Set<Publicacao>()
-                .Include(p => p.Comentarios)
-                    .ThenInclude(p => p.Usuario)
-                .FirstOrDefaultAsync(p => p.Id == publicacaoId);
-
-        publicacao?.AdicionarComentario(comentario);
-        
-        _context.Set<Publicacao>().Update(publicacao);
-        await _context.SaveChangesAsync();
-        
-        return publicacao!;
     }
 
     public async Task UpdateAsync(Guid id, Publicacao publicacao)

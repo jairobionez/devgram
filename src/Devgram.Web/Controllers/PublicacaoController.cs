@@ -136,9 +136,29 @@ public class PublicacaoController : Controller
     [HttpPost("comentar/{id}")]
     public async Task<IActionResult> ComentarPublicacao(Guid id, [FromBody] PublicacaoComentarioModel model)
     {
-        var publicacao = await _publicacaoRepository.InsertCommentAsync(id, _mapper.Map<PublicacaoComentario>(model));
+        var usuarioId = _aspnetUser.GetUserId();
+        var publicacao = await _usuarioRepository.NovoComentarioAsync(usuarioId!.Value, id, _mapper.Map<PublicacaoComentario>(model));
         
         this.AddAlertSuccess("Comentário adicionado com sucesso!");
+        return PartialView("_ListaComentarios", _mapper.Map<PublicacaoResponseModel>(publicacao));
+    }
+    
+    [HttpGet("{publicacaoId}/remover-comentario/{id}")]
+    public async Task<ActionResult> DeletarComentario(Guid id, Guid publicacaoId)
+    {
+        var usuarioId = _aspnetUser.GetUserId();
+        var comentario = _mapper.Map<PublicacaoComentarioResponseModel>(await _usuarioRepository.BuscarComentario(usuarioId!.Value, id));
+
+        return View(comentario);
+    }
+    
+    [HttpPost("{publicacaoId}/remover-comentario/{id}")]
+    public async Task<IActionResult> ConfirmarDeletarComentario(Guid id, Guid publicacaoId)
+    {
+        var usuarioId = _aspnetUser.GetUserId();
+        var publicacao = await _usuarioRepository.RemoverComentarioAsync(usuarioId!.Value, publicacaoId, id);
+        this.AddAlertSuccess("Comentário removido com sucesso!");
+
         return PartialView("_ListaComentarios", _mapper.Map<PublicacaoResponseModel>(publicacao));
     }
 

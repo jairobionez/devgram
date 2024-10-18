@@ -14,7 +14,12 @@
             {
                 <div class="comentario-descricao">
                     <div class="d-flex justify-content-between mb-1">
+                        
+                        
+                        
                         <p class="titulo">@comentario.Usuario.NomeCompleto </p>
+
+
                         <div class="d-flex ">
                             @if (comentario.Editado)
                             {
@@ -25,7 +30,7 @@
 
                             @if (_aspnetUser.IsInRole("ADMIN") || comentario.UsuarioId == _aspnetUser.GetUserId())
                             {
-                            <span data-id="@comentario.Id" class="delete material-icons cursor-pointer cor-vermelha">delete</span>
+                                <span data-id="@comentario.Id" class="delete material-icons cursor-pointer cor-vermelha">delete</span>
                             }
                         </div>
                     </div>
@@ -37,10 +42,40 @@
 }
 
 <script>
+    $(document).ready(function () {
+        $("#form-comentario").submit(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            var formArray = $('#form-comentario').serializeArray(); // Serializa o formulário para uma array de pares name-value
+            var formData = {};
+
+            $.map(formArray, function(n, i){
+                formData[n['name']] = n['value'];
+            });
+
+            $.ajax({
+                url: "@Url.Action("ComentarPublicacao", "Publicacao", new { id = @Model.Id })",
+                data: JSON.stringify(formData),
+                contentType:'application/json',
+                type: "POST",
+                success: function (result) {
+                    $("#lista-comentarios").html("");
+                    $("#lista-comentarios").html(result);
+                    $("#descricao").val('');
+                },
+                error: function (result) {
+                    window.alert("This is an unhandled exception. ");
+                }
+            });
+        });
+    });
+    
     $(".delete").click(function () {
         var id = $(this).attr("data-id");
-        $("#modal").load("publicacao/remover-publicacao/" + id, function () {
+        $("#modal").load(`/publicacao/@Model.Id/remover-comentario/${id}`, function () {
             document.getElementById("modal").style.display = 'block';
         });
     });
+
 </script>

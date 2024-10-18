@@ -51,6 +51,25 @@
             
             Comentarios.Add(publicacaoComentario);
         }
+        
+        public void AtualizarComentario(Guid comentarioId, PublicacaoComentario publicacaoComentario)
+        {
+            if(Comentarios == null)
+                Comentarios = new List<PublicacaoComentario>();
+            
+            Comentarios.Where(p => p.Id == comentarioId)
+                .ToList().ForEach(p => p.Atualizar(publicacaoComentario));
+        }
+        
+        public void RemoverComentario(Guid comentarioId)
+        {
+            if(Comentarios == null)
+                Comentarios = new List<PublicacaoComentario>();
+            
+            var comentario = Comentarios.First(p => p.Id == comentarioId);
+
+            Comentarios.Remove(comentario);
+        }
 
         public void NovaPublicacao()
         {

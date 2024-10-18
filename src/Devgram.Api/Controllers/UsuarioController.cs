@@ -1,5 +1,6 @@
 using AutoMapper;
 using Devgram.Data.Entities;
+using Devgram.Data.Enums;
 using Devgram.Data.Infra;
 using Devgram.Data.Interfaces;
 using Devgram.Data.ViewModels;
@@ -17,14 +18,16 @@ public class UsuarioController : Controller
     private readonly IUsuarioRepository _usuarioRepository;
     private readonly IMapper _mapper;
     private readonly INotifiable _notifiable;
+    private readonly IAspnetUser _aspnetUser;
 
     public UsuarioController(IPublicacaoRepository publicacaoRepository, IUsuarioRepository usuarioRepository,
-        IMapper mapper, INotifiable notifiable)
+        IMapper mapper, INotifiable notifiable, IAspnetUser aspnetUser)
     {
         _publicacaoRepository = publicacaoRepository;
         _usuarioRepository = usuarioRepository;
         _mapper = mapper;
         _notifiable = notifiable;
+        _aspnetUser = aspnetUser;
     }
 
     [HttpGet("{usuarioId}/publicacao")]
@@ -91,6 +94,63 @@ public class UsuarioController : Controller
             return Unauthorized(_notifiable.GetNotifications);
 
         return Ok();
+    }
+    
+       
+    [HttpPost("{usuarioId}/publicacao/{publicacaoId}/comentario")]
+    [ProducesResponseType(typeof(Guid), 200)]
+    [ProducesResponseType(typeof(object), 500)]
+    public async Task<ActionResult> NovoComentario(Guid usuarioId, Guid publicacaoId, [FromBody] PublicacaoComentarioModel model)
+    {
+        var usuarioLogadoId = _aspnetUser.GetUserId();
+        
+        if (usuarioId != usuarioLogadoId)
+        {
+            _notifiable.AddNotification("Falha ao remover comentário, privilégios insuficientes.");
+            return BadRequest(_notifiable.GetNotifications);
+        }
+        
+        var resultado = await _usuarioRepository.NovoComentarioAsync(
+            usuarioId, publicacaoId, _mapper.Map<PublicacaoComentario>(model));
+        
+        return Ok(resultado);
+    }
+    
+    [HttpPut("{usuarioId}/publicacao/{publicacaoId}/comentario/{comentarioId}")]
+    [ProducesResponseType(typeof(Guid), 200)]
+    [ProducesResponseType(typeof(object), 500)]
+    public async Task<ActionResult> AlterarComentario(Guid usuarioId, Guid publicacaoId, Guid comentarioId, [FromBody] PublicacaoComentarioModel model)
+    {
+        var usuarioLogadoId = _aspnetUser.GetUserId();
+        
+        if (usuarioId != usuarioLogadoId)
+        {
+            _notifiable.AddNotification("Falha ao remover comentário, privilégios insuficientes.");
+            return BadRequest(_notifiable.GetNotifications);
+        }
+        
+        var resultado = await _usuarioRepository.AlterarComentarioAsync(
+            usuarioId, publicacaoId, comentarioId, _mapper.Map<PublicacaoComentario>(model));
+        
+        return Ok(resultado);
+    }
+    
+    [HttpDelete("{usuarioId}/publicacao/{publicacaoId}/comentario/{comentarioId}")]
+    [ProducesResponseType(typeof(bool), 200)]
+    [ProducesResponseType(typeof(object), 500)]
+    public async Task<ActionResult> RemoverComentario(Guid usuarioId, Guid publicacaoId, Guid comentarioId)
+    {
+        var perfilUsuario = _aspnetUser.GetUserRole();
+        var usuarioLogadoId = _aspnetUser.GetUserId();
+
+        if (perfilUsuario != nameof(PerfilUsuarioEnum.ADMIN) && usuarioId != usuarioLogadoId)
+        {
+            _notifiable.AddNotification("Falha ao remover comentário, privilégios insuficientes.");
+            return BadRequest(_notifiable.GetNotifications);
+        }
+        
+        await _usuarioRepository.RemoverComentarioAsync(usuarioId, publicacaoId, comentarioId);
+        return NoContent();
     }
 
     private async Task<string> UpdateFile(IFormFile file, string? existingFile = null)

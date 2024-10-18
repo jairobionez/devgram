@@ -37,6 +37,7 @@
         public void Atualizar(PublicacaoComentario publicacaoComentario)
         {
             Descricao = publicacaoComentario.Descricao;
+            DataAtualizacao = DateTime.Now;
             Editado = true;
         }
     }

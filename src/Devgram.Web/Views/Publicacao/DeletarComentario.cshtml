@@ -1,0 +1,48 @@
+@model Devgram.Data.ViewModels.PublicacaoComentarioResponseModel
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Remover comentário</h2>
+        </div>
+        <div class="modal-body">
+            <p class="mb-3">Você tem certeza de que deseja remover este comentário? Esta ação não poderá ser desfeita.</p>
+            <p>
+                <strong>Comentário:</strong> <em>@Model.Descricao</em>
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button id="voltar" class="btn-outline-purple me-10px" type="button">
+                Cancelar
+            </button>
+            <button id="remover" class="btn-outline-red">
+                Remover
+                <span class="material-icons">delete</span>
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $("#voltar").click(function () {
+        document.getElementById("modal").style.display = 'none';
+    });
+
+    $("#remover").click(function () {
+        $.ajax({
+            url: "@Url.Action("ConfirmarDeletarComentario", "Publicacao", new { id = @Model.Id, publicacaoId = @Model.PublicacaoId })",
+            data: {},
+            type: "Post",
+            success: function (result) {
+                $("#lista-comentarios").html("");
+                $("#lista-comentarios").html(result);
+                document.getElementById("modal").style.display = 'none';
+            },
+            error: function (result) {
+                window.alert("This is an unhandled exception. ");
+            }
+        });
+    });
+
+</script>
