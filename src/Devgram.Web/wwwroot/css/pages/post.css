@@ -90,5 +90,10 @@ li {
 
 .comentario-descricao .delete {
     font-size: var(--size-20);
+    margin-left: .5rem;
+}
+
+.comentario-descricao .edit {
+    font-size: var(--size-20);
     margin-left: 1rem;
 }

@@ -2,6 +2,10 @@
 @model Devgram.Data.ViewModels.PublicacaoResponseModel 
 @inject IAspnetUser _aspnetUser;
 
+<div class="alert-container">
+    <alert></alert>
+</div>
+
 @if (Model?.Comentarios?.Count > 0)
 {
     <div>
@@ -14,9 +18,8 @@
             {
                 <div class="comentario-descricao">
                     <div class="d-flex justify-content-between mb-1">
-                        
-                        
-                        
+
+
                         <p class="titulo">@comentario.Usuario.NomeCompleto </p>
 
 
@@ -28,6 +31,11 @@
 
                             <p>@comentario.DataCriacao </p>
 
+                            @if (_aspnetUser.IsInRole("ADMIN") || comentario.UsuarioId == _aspnetUser.GetUserId())
+                            {
+                                <span data-id="@comentario.Id" class="edit material-icons cursor-pointer">edit</span>
+                            }
+                            
                             @if (_aspnetUser.IsInRole("ADMIN") || comentario.UsuarioId == _aspnetUser.GetUserId())
                             {
                                 <span data-id="@comentario.Id" class="delete material-icons cursor-pointer cor-vermelha">delete</span>
@@ -42,8 +50,7 @@
 }
 
 <script>
-    $(document).ready(function () {
-        $("#form-comentario").submit(function (e) {
+        @*$("#form-comentario").submit(function (e) {
             e.preventDefault();
             e.stopPropagation();
 
@@ -68,8 +75,7 @@
                     window.alert("This is an unhandled exception. ");
                 }
             });
-        });
-    });
+        });*@
     
     $(".delete").click(function () {
         var id = $(this).attr("data-id");

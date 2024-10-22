@@ -16,8 +16,8 @@ namespace Devgram.Data.Interfaces
         Task<IQueryable<Publicacao>> GetPublicacoesAsync(string termo);
         Task<Publicacao?> GetPublicacaoAsync(Guid publicacaoId);
         Task<PublicacaoComentario?> BuscarComentario(Guid usuarioId, Guid comentarioId);
-        Task<Guid> NovoComentarioAsync(Guid usuarioId, Guid publicacaoId, PublicacaoComentario comentario);
-        Task<Guid> AlterarComentarioAsync(Guid usuarioId, Guid publicacaoId, Guid comentarioId, PublicacaoComentario comentario);
+        Task<Publicacao> NovoComentarioAsync(Guid usuarioId, Guid publicacaoId, PublicacaoComentario comentario);
+        Task<Publicacao> AlterarComentarioAsync(Guid usuarioId, Guid publicacaoId, Guid comentarioId, PublicacaoComentario comentario);
         Task<Publicacao> RemoverComentarioAsync(Guid usuarioId, Guid publicacaoId, Guid comentarioId);
     }
 }
