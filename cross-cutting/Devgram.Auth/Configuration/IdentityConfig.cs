@@ -3,6 +3,7 @@ using Devgram.Auth.Extensions;
 using Devgram.Data.Infra;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,6 +42,17 @@ namespace Devgram.Auth.Configuration
                         context.Token = context.Request.Cookies["Token"];
                         return Task.CompletedTask;
                     },
+                    OnChallenge = context =>
+                    {
+                        context.HandleResponse();
+
+                        if (!context.Response.HasStarted)
+                        {
+                            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                            context.Response.Redirect("/acesso-negado");
+                        }
+                        return Task.CompletedTask;
+                    }
                 };
                 x.RequireHttpsMetadata = true;
                 x.SaveToken = true;

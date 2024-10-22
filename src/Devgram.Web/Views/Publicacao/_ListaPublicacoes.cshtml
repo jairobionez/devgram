@@ -37,7 +37,7 @@
                 <td>
                     @if (_aspnetUser.GetUserId() == publicacao.UsuarioId)
                     {
-                        <a asp-action="EditarPublicacao" asp-route-id="@publicacao.Id">
+                        <a asp-action="EditarPublicacao" asp-route-publicacaoId="@publicacao.Id">
                             <span class="material-icons cursor-pointer">edit</span>
                         </a>
                     }
@@ -52,7 +52,7 @@
 <script>
     $(".delete").click(function () {
         var id = $(this).attr("data-id");
-        $("#modal").load("publicacao/remover-publicacao/" + id, function () {
+        $("#modal").load(`/publicacao/${id}/remover-publicacao/`, function () {
             document.getElementById("modal").style.display = 'block';
         });
     });

@@ -78,51 +78,58 @@ public class UsuarioRepository : IUsuarioRepository
         return resultado;
     }
 
-    public async Task<PublicacaoComentario?> BuscarComentario(Guid usuarioId, Guid comentarioId)
+    public async Task<PublicacaoComentario?> BuscarComentario(Guid usuarioId, Guid publicacaoId, Guid comentarioId, bool admin = false)
     {
         return await _context.Set<PublicacaoComentario>()
-            .FirstOrDefaultAsync(p => p.UsuarioId == usuarioId && p.Id == comentarioId);
+            .FirstOrDefaultAsync(p => (admin || p.UsuarioId == usuarioId) && p.Id == comentarioId);
     }
     
-    public async Task<Publicacao> NovoComentarioAsync(Guid usuarioId, Guid publicacaoId, PublicacaoComentario comentario)
+    public async Task<Publicacao> NovoComentarioAsync(Guid publicacaoId, PublicacaoComentario comentario)
     {
-        var publicao = await _context.Set<Publicacao>()
+        var publicacao = await _context.Set<Publicacao>()
             .Include(p => p.Comentarios.OrderByDescending(p => p.DataCriacao))
+                .ThenInclude(p => p.Usuario)
             .Include(p => p.Usuario)
-            .FirstOrDefaultAsync(p => p.UsuarioId == usuarioId && p.Id == publicacaoId);
+            .FirstOrDefaultAsync(p => p.Id == publicacaoId);
+
+        if (publicacao.Comentarios.Count == 0)
+            comentario.VincularUsuario(
+                await _context.Set<Usuario>().FirstOrDefaultAsync(p => p.Id == _aspnetUser.GetUserId()));
         
-        publicao.AdicionarComentario(comentario);
-        _context.Set<Publicacao>().Update(publicao);
+        publicacao.AdicionarComentario(comentario);
+        _context.Set<Publicacao>().Update(publicacao);
         await _context.SaveChangesAsync();
 
-        return publicao;
+        return publicacao;
     }
     
     public async Task<Publicacao> AlterarComentarioAsync(Guid usuarioId, Guid publicacaoId, Guid comentarioId, PublicacaoComentario comentario)
     {
-        var publicao = await _context.Set<Publicacao>()
+        var publicacao = await _context.Set<Publicacao>()
             .Include(p => p.Comentarios.OrderByDescending(p => p.DataCriacao))
+            .ThenInclude(p => p.Usuario)
             .Include(p => p.Usuario)
             .FirstOrDefaultAsync(p => p.UsuarioId == usuarioId && p.Id == publicacaoId);
         
-        publicao.AtualizarComentario(comentarioId, comentario);
-        _context.Set<Publicacao>().Update(publicao);
+        publicacao.AtualizarComentario(comentarioId, comentario);
+        _context.Set<Publicacao>().Update(publicacao);
         await _context.SaveChangesAsync();
 
-        return publicao;
+        return publicacao;
     }
     
-    public async Task<Publicacao> RemoverComentarioAsync(Guid usuarioId, Guid publicacaoId, Guid comentarioId)
+    public async Task<Publicacao> RemoverComentarioAsync(Guid usuarioId, Guid publicacaoId, Guid comentarioId, bool admin = false)
     {
-        var publicao = await _context.Set<Publicacao>()
+        var publicacao = await _context.Set<Publicacao>()
             .Include(p => p.Usuario)
             .Include(p => p.Comentarios.OrderByDescending(p => p.DataCriacao))
-            .FirstOrDefaultAsync(p => p.UsuarioId == usuarioId && p.Id == publicacaoId);
+                .ThenInclude(p => p.Usuario)
+            .FirstOrDefaultAsync(p => (admin || p.UsuarioId == usuarioId) && p.Id == publicacaoId);
         
-        publicao.RemoverComentario(comentarioId);
-        _context.Set<Publicacao>().Update(publicao);
+        publicacao.RemoverComentario(comentarioId);
+        _context.Set<Publicacao>().Update(publicacao);
         await _context.SaveChangesAsync();
 
-        return publicao;
+        return publicacao;
     }
 }

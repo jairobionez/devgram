@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Devgram.Data.Enums;
 using Devgram.Data.Interfaces;
 using Microsoft.AspNetCore.Http;
 
@@ -22,6 +23,11 @@ public class AspnetUser : IAspnetUser
         return IsAuthenticated() ? Guid.Parse(_accessor.HttpContext.User.GetUsuarioId()) : null;
     }
 
+    public bool Admin()
+    {
+        return IsAuthenticated() ? _accessor.HttpContext.User.GetUserRole() == nameof(PerfilUsuarioEnum.ADMIN) : false;
+    }
+    
     public string GetUserRole()
     {
         return IsAuthenticated() ? _accessor.HttpContext.User.GetUserRole() : "";

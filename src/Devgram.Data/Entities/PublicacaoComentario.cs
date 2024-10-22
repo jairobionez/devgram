@@ -40,5 +40,10 @@
             DataAtualizacao = DateTime.Now;
             Editado = true;
         }
+
+        public void VincularUsuario(Usuario usuario)
+        {
+            Usuario = usuario;
+        }
     }
 }

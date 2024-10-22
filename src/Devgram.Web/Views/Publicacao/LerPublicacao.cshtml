@@ -72,7 +72,7 @@
             });
 
             $.ajax({
-                url: "@Url.Action("ComentarPublicacao", "Publicacao", new { id = @Model.Id })",
+                url: "@Url.Action("ComentarPublicacao", "Publicacao", new { publicacaoId = @Model.Id })",
                 data: JSON.stringify(formData),
                 contentType:'application/json',
                 type: "POST",

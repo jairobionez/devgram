@@ -20,6 +20,7 @@ public class PublicacaoRepository : IPublicacaoRepository
     public async Task<IQueryable<Publicacao>> GetAsync()
     {
         var resultado = _context.Set<Publicacao>()
+                                                    .Include(p => p.Usuario)
                                                     .AsNoTracking()
                                                     .OrderByDescending(p => p.DataCriacao);
         return await Task.FromResult(resultado);

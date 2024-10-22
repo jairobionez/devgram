@@ -6,6 +6,7 @@ public interface IAspnetUser
 {
     string Name { get; }
     string Action { get; }
+    bool Admin();
     Guid? GetUserId();
     string GetUserRole();
     string GetUserEmail();

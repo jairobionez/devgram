@@ -1,0 +1,62 @@
+@model Devgram.Data.ViewModels.PublicacaoComentarioResponseModel
+
+<div class="alert-container">
+    <alert></alert>
+</div>
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Alterar comentário</h2>
+        </div>
+        <div class="modal-body">
+            <form id="form-comentario">
+                <div class="form-group mb-1">
+                    <label>Digite o novo comentário</label>
+                    <textarea asp-for="Descricao" id="descricao" name="descricao" rows="4"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button id="voltar" class="btn-outline-purple me-10px" type="button">
+                Cancelar
+            </button>
+            <button id="alterar" class="btn-outline-orange">
+                Alterar
+                <span class="material-icons">edit</span>
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $("#voltar").click(function () {
+        document.getElementById("modal").style.display = 'none';
+    });
+
+    $("#alterar").click(function () {
+        debugger;
+        var formArray = $('#form-comentario').serializeArray(); // Serializa o formulário para uma array de pares name-value
+        var formData = {};
+
+        $.map(formArray, function(n, i){
+            formData[n['name']] = n['value'];
+        });
+        
+        $.ajax({
+            url: "@Url.Action("ConfirmarAlterarComentario", "Publicacao", new { id = @Model.Id, publicacaoId = @Model.PublicacaoId })",
+            data: JSON.stringify(formData),
+            type: "Post",
+            contentType:'application/json',
+            success: function (result) {
+                $("#lista-comentarios").html("");
+                $("#lista-comentarios").html(result);
+                document.getElementById("modal").style.display = 'none';
+            },
+            error: function (result) {
+                window.alert("This is an unhandled exception. ");
+            }
+        });
+    });
+</script>

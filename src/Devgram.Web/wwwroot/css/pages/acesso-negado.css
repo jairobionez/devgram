@@ -1,0 +1,22 @@
+
+.content {
+    position: relative;
+    height: 90vh;
+}
+
+.unauthorize-content {
+    width: 50vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.unauthorize-content .title {
+    font-size: 5rem;
+    font-weight: 700;
+}
+
+.unauthorize-content .descricao {
+    font-size: 3rem;
+}

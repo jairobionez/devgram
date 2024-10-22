@@ -18,9 +18,10 @@
             <div class="card-content">
                 <h2 class="title">@publicacao.Titulo.Truncate(50)</h2>
                 <p class="card-description">@publicacao.Descricao.Truncate(200)</p>
+                <p class="card-description text-right">Autor: @publicacao.Usuario.NomeCompleto</p>
             </div>
             <div class="card-footer">
-                <a asp-controller="Publicacao" asp-action="LerPublicacao" asp-route-id="@publicacao.Id">
+                <a asp-controller="Publicacao" asp-action="LerPublicacao" asp-route-publicacaoId="@publicacao.Id">
                     <button class="btn">Ler Mais</button>
                 </a>
             </div>

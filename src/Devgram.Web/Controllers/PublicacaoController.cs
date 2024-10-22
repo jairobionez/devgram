@@ -41,6 +41,7 @@ public class PublicacaoController : Controller
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> Index()
     {
         var role = _aspnetUser.GetUserRole();
@@ -87,59 +88,79 @@ public class PublicacaoController : Controller
         return View(publicacao);
     }
 
-    [HttpGet("editar-publicacao/{id}")]
-    public async Task<ActionResult> EditarPublicacao(Guid id)
+    [HttpGet("{publicacaoId}/editar-publicacao")]
+    public async Task<ActionResult> EditarPublicacao(Guid publicacaoId)
     {
-        var publicacao = _mapper.Map<PublicacaoResponseModel>(await _publicacaoRepository.GetAsync(id));
+        var publicacao = _mapper.Map<PublicacaoResponseModel>(await _publicacaoRepository.GetAsync(publicacaoId));
         return View(publicacao);
     }
 
-    [HttpPost("editar-publicacao/{id}")]
-    public async Task<ActionResult> EditarPublicacao(Guid id, PublicacaoResponseModel publicacao)
+    [HttpPost("{publicacaoId}/editar-publicacao")]
+    public async Task<ActionResult> EditarPublicacao(Guid publicacaoId, PublicacaoResponseModel publicacao)
     {
         if (ModelState.IsValid)
         {
             if (publicacao.File != null && publicacao.File.Length > 0)
                 publicacao.Logo = await UpdateFile(publicacao.File, publicacao.Logo);
 
-            await _publicacaoRepository.UpdateAsync(id, _mapper.Map<Publicacao>(publicacao));
+            await _publicacaoRepository.UpdateAsync(publicacaoId, _mapper.Map<Publicacao>(publicacao));
             return RedirectToAction("Index");
         }
 
         return View(publicacao);
     }
 
-    [HttpGet("remover-publicacao/{id}")]
-    public async Task<ActionResult> DeletarPublicacao(Guid id)
+    [HttpGet("{publicacaoId}/remover-publicacao")]
+    public async Task<ActionResult> DeletarPublicacao(Guid publicacaoId)
     {
-        var publicacao = _mapper.Map<PublicacaoResponseModel>(await _publicacaoRepository.GetAsync(id));
+        var publicacao = _mapper.Map<PublicacaoResponseModel>(await _publicacaoRepository.GetAsync(publicacaoId));
 
         return View(publicacao);
     }
 
-    [HttpDelete("remover-publicacao/{id}")]
-    public async Task<JsonResult> ConfirmarDeletarPublicacao(Guid id)
+    [HttpDelete("{publicacaoId}/remover-publicacao")]
+    public async Task<JsonResult> ConfirmarDeletarPublicacao(Guid publicacaoId)
     {
-        await _publicacaoRepository.DeleteAsync(id);
+        await _publicacaoRepository.DeleteAsync(publicacaoId);
         this.AddAlertSuccess("Publicação removida com sucesso!");
 
         return Json(new { url = "Index" });
     }
 
-    [HttpGet("ler-publicacao/{id}")]
-    public async Task<IActionResult> LerPublicacao(Guid id)
+    [HttpGet("{publicacaoId}/ler-publicacao")]
+    public async Task<IActionResult> LerPublicacao(Guid publicacaoId)
     {
-        var publicacao = _mapper.Map<PublicacaoResponseModel>(await _publicacaoRepository.GetAsync(id));
+        var publicacao = _mapper.Map<PublicacaoResponseModel>(await _publicacaoRepository.GetAsync(publicacaoId));
         return View(publicacao);
     }
 
-    [HttpPost("comentar/{id}")]
-    public async Task<IActionResult> ComentarPublicacao(Guid id, [FromBody] PublicacaoComentarioModel model)
+    [HttpPost("{publicacaoId}/comentar")]
+    public async Task<IActionResult> ComentarPublicacao(Guid publicacaoId, [FromBody] PublicacaoComentarioModel model)
     {
-        var usuarioId = _aspnetUser.GetUserId();
-        var publicacao = await _usuarioRepository.NovoComentarioAsync(usuarioId!.Value, id, _mapper.Map<PublicacaoComentario>(model));
+        var publicacao = await _usuarioRepository.NovoComentarioAsync(publicacaoId, _mapper.Map<PublicacaoComentario>(model));
         
         this.AddAlertSuccess("Comentário adicionado com sucesso!");
+        return PartialView("_ListaComentarios", _mapper.Map<PublicacaoResponseModel>(publicacao));
+    }
+    
+    [HttpGet("{publicacaoId}/alterar-comentario/{id}")]
+    public async Task<IActionResult> AlterarComentario(Guid publicacaoId, Guid id)
+    {
+        var usuarioId = _aspnetUser.GetUserId();
+        var comentario = _mapper.Map<PublicacaoComentarioResponseModel>(
+            await _usuarioRepository.BuscarComentario(usuarioId!.Value, publicacaoId, id));
+        
+        return View(comentario);
+    }
+    
+    [HttpPost("{publicacaoId}/alterar-comentario/{id}")]
+    public async Task<IActionResult> ConfirmarAlterarComentario(Guid id, Guid publicacaoId, [FromBody] PublicacaoComentarioModel model)
+    {
+        var usuarioId = _aspnetUser.GetUserId();
+        var publicacao = await _usuarioRepository.AlterarComentarioAsync(usuarioId!.Value, publicacaoId, id, 
+            _mapper.Map<PublicacaoComentario>(model));
+        
+        this.AddAlertSuccess("Comentário alterado com sucesso!");
         return PartialView("_ListaComentarios", _mapper.Map<PublicacaoResponseModel>(publicacao));
     }
     
@@ -147,7 +168,9 @@ public class PublicacaoController : Controller
     public async Task<ActionResult> DeletarComentario(Guid id, Guid publicacaoId)
     {
         var usuarioId = _aspnetUser.GetUserId();
-        var comentario = _mapper.Map<PublicacaoComentarioResponseModel>(await _usuarioRepository.BuscarComentario(usuarioId!.Value, id));
+        
+        var comentario = _mapper.Map<PublicacaoComentarioResponseModel>(
+            await _usuarioRepository.BuscarComentario(usuarioId!.Value, publicacaoId, id, _aspnetUser.Admin()));
 
         return View(comentario);
     }
@@ -156,7 +179,7 @@ public class PublicacaoController : Controller
     public async Task<IActionResult> ConfirmarDeletarComentario(Guid id, Guid publicacaoId)
     {
         var usuarioId = _aspnetUser.GetUserId();
-        var publicacao = await _usuarioRepository.RemoverComentarioAsync(usuarioId!.Value, publicacaoId, id);
+        var publicacao = await _usuarioRepository.RemoverComentarioAsync(usuarioId!.Value, publicacaoId, id, _aspnetUser.Admin());
         this.AddAlertSuccess("Comentário removido com sucesso!");
 
         return PartialView("_ListaComentarios", _mapper.Map<PublicacaoResponseModel>(publicacao));

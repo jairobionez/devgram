@@ -102,16 +102,7 @@ public class UsuarioController : Controller
     [ProducesResponseType(typeof(object), 500)]
     public async Task<ActionResult> NovoComentario(Guid usuarioId, Guid publicacaoId, [FromBody] PublicacaoComentarioModel model)
     {
-        var usuarioLogadoId = _aspnetUser.GetUserId();
-        
-        if (usuarioId != usuarioLogadoId)
-        {
-            _notifiable.AddNotification("Falha ao remover comentário, privilégios insuficientes.");
-            return Unauthorized(_notifiable.GetNotifications);
-        }
-        
-        var resultado = await _usuarioRepository.NovoComentarioAsync(
-            usuarioId, publicacaoId, _mapper.Map<PublicacaoComentario>(model));
+        var resultado = await _usuarioRepository.NovoComentarioAsync(publicacaoId, _mapper.Map<PublicacaoComentario>(model));
         
         return Ok(resultado);
     }
@@ -140,16 +131,15 @@ public class UsuarioController : Controller
     [ProducesResponseType(typeof(object), 500)]
     public async Task<ActionResult> RemoverComentario(Guid usuarioId, Guid publicacaoId, Guid comentarioId)
     {
-        var perfilUsuario = _aspnetUser.GetUserRole();
         var usuarioLogadoId = _aspnetUser.GetUserId();
 
-        if (perfilUsuario != nameof(PerfilUsuarioEnum.ADMIN) && usuarioId != usuarioLogadoId)
+        if (!_aspnetUser.Admin() && usuarioId != usuarioLogadoId)
         {
             _notifiable.AddNotification("Falha ao remover comentário, privilégios insuficientes.");
             return Unauthorized(_notifiable.GetNotifications);
         }
         
-        await _usuarioRepository.RemoverComentarioAsync(usuarioId, publicacaoId, comentarioId);
+        await _usuarioRepository.RemoverComentarioAsync(usuarioId, publicacaoId, comentarioId, _aspnetUser.Admin());
         return NoContent();
     }
 

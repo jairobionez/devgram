@@ -35,7 +35,7 @@
 
     $("#remover").click(function () {
         $.ajax({
-            url: "@Url.Action("ConfirmarDeletarPublicacao", "Publicacao", new { id = @Model.Id })",
+            url: "@Url.Action("ConfirmarDeletarPublicacao", "Publicacao", new { publicacaoId = @Model.Id })",
             data: {},
             type: "Delete",
             success: function (result) {

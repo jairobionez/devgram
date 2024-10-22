@@ -1,3 +1,4 @@
+using Devgram.Data.Entities;
 using Microsoft.AspNetCore.Http;
 
 namespace Devgram.Data.ViewModels;
@@ -9,6 +10,7 @@ public class PublicacaoResponseModel
     public string? Descricao { get; set; }
     public string? Logo { get; set; }
     public Guid UsuarioId { get; set; }
+    public UsuarioResponseModel Usuario { get; set; }
     public DateTime? DataCriacao { get; set; }
     public DateTime? DataAtualizacao { get; set; }
     public IFormFile File { get; set; }
