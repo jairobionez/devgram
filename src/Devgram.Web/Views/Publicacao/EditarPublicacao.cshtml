@@ -12,6 +12,10 @@
 
 <vc:header-component></vc:header-component>
 
+<div class="alert-container">
+    <alert></alert>
+</div>
+
 <div class="global-container">
     <form asp-action="EditarPublicacao" method="post" enctype="multipart/form-data">
         <input type="hidden" asp-for="UsuarioId" value="@_aspnetUser.GetUserId()"/>
