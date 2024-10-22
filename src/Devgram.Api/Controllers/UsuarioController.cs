@@ -107,7 +107,7 @@ public class UsuarioController : Controller
         if (usuarioId != usuarioLogadoId)
         {
             _notifiable.AddNotification("Falha ao remover comentário, privilégios insuficientes.");
-            return BadRequest(_notifiable.GetNotifications);
+            return Unauthorized(_notifiable.GetNotifications);
         }
         
         var resultado = await _usuarioRepository.NovoComentarioAsync(
@@ -126,7 +126,7 @@ public class UsuarioController : Controller
         if (usuarioId != usuarioLogadoId)
         {
             _notifiable.AddNotification("Falha ao remover comentário, privilégios insuficientes.");
-            return BadRequest(_notifiable.GetNotifications);
+            return Unauthorized(_notifiable.GetNotifications);
         }
         
         var resultado = await _usuarioRepository.AlterarComentarioAsync(
@@ -146,7 +146,7 @@ public class UsuarioController : Controller
         if (perfilUsuario != nameof(PerfilUsuarioEnum.ADMIN) && usuarioId != usuarioLogadoId)
         {
             _notifiable.AddNotification("Falha ao remover comentário, privilégios insuficientes.");
-            return BadRequest(_notifiable.GetNotifications);
+            return Unauthorized(_notifiable.GetNotifications);
         }
         
         await _usuarioRepository.RemoverComentarioAsync(usuarioId, publicacaoId, comentarioId);
