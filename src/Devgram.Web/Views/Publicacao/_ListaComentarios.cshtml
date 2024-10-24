@@ -24,19 +24,14 @@
                             {
                                 <p class="editado">Editado</p>
                             }
-                            
-                            @if (!comentario.DataAtualizacao.HasValue)
-                            {
-                                <p>@comentario.DataCriacao </p>
-                            }else {
-                                <p>@comentario.DataAtualizacao </p>
-                            }
+
+                            <p>@comentario.UltimaAlteracao </p>
 
                             @if (comentario.UsuarioId == _aspnetUser.GetUserId())
                             {
                                 <span data-id="@comentario.Id" class="edit material-icons cursor-pointer">edit</span>
                             }
-                            
+
                             @if (_aspnetUser.Admin() || comentario.UsuarioId == _aspnetUser.GetUserId())
                             {
                                 <span data-id="@comentario.Id" class="delete material-icons cursor-pointer cor-vermelha">delete</span>

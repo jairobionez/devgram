@@ -10,10 +10,12 @@ public class AutoMapperConfig : Profile
     {
         CreateMap<Usuario, UsuarioResponseModel>()
             .ForMember(p => p.NomeCompleto, opts => opts.MapFrom(p => p.ToString()));
-        
-        CreateMap<Publicacao, PublicacaoResponseModel>().ReverseMap();
+        CreateMap<Publicacao, PublicacaoResponseModel>()
+            .ForMember(p => p.TempoMedioLeitura, opt => opt.MapFrom(x => x.CalcularTempoMedioLeitura()))
+            .ReverseMap();
         CreateMap<PublicacaoModel, Publicacao>();
-        CreateMap<PublicacaoComentario, PublicacaoComentarioResponseModel>();
+        CreateMap<PublicacaoComentario, PublicacaoComentarioResponseModel>()
+            .ForMember(p => p.UltimaAlteracao, opt => opt.MapFrom(p => p.CalcularTempoDesdeEdicao()));;
         CreateMap<PublicacaoComentarioModel, PublicacaoComentario>();
     }
 }

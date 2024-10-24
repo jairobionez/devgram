@@ -75,5 +75,28 @@
         {
             DataCriacao = DateTime.Now;
         }
+        
+        public string CalcularTempoMedioLeitura()
+        {
+            int palavrasPorMinuto = 200;
+            int numeroDePalavras = ContarPalavras(Descricao);
+            double tempoMinutos = (double)numeroDePalavras / palavrasPorMinuto;
+
+            int minutos = (int)tempoMinutos;
+
+            if (minutos < 1)
+                return "Tempo de leitura menos de 1 minuto";
+;            
+            return $"Tempo médiop de leitura: {minutos} minuto(s)";
+        }
+
+        private int ContarPalavras(string texto)
+        {
+            if (string.IsNullOrWhiteSpace(texto))
+                return 0;
+
+            string[] palavras = texto.Split(new char[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            return palavras.Length;
+        }
     }
 }

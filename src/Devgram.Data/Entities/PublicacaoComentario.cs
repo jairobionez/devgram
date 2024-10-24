@@ -33,6 +33,28 @@
         public virtual Usuario? Usuario { get; private set; }
 
         public virtual ICollection<PublicacaoComentario>? Respostas { get; private set; }
+
+        public string CalcularTempoDesdeEdicao()
+        {
+            DateTime dataUtilizada = DataAtualizacao.HasValue ? DataAtualizacao.Value : DataCriacao.Value;
+            
+            TimeSpan diferencaTempo = DateTime.Now - dataUtilizada;
+
+            if (diferencaTempo.TotalDays >= 1)
+            {
+                int dias = (int)diferencaTempo.TotalDays;
+                return dias == 1 ? "1 dia atrás" : $"{dias} dias atrás";
+            }
+            else if (diferencaTempo.TotalHours >= 1)
+            {
+                int horas = (int)diferencaTempo.TotalHours;
+                return horas == 1 ? "1 hora atrás" : $"{horas} horas atrás";
+            }
+            else
+            {
+                return "A alguns minutos";
+            }
+        }
         
         public void Atualizar(PublicacaoComentario publicacaoComentario)
         {
