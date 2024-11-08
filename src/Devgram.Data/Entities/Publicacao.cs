@@ -86,7 +86,7 @@
 
             if (minutos < 1)
                 return "Tempo de leitura menos de 1 minuto";
-;            
+            
             return $"Tempo médiop de leitura: {minutos} minuto(s)";
         }
 

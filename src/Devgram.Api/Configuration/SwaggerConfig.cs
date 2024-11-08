@@ -45,6 +45,9 @@ public static class SwaggerConfig
                 });
 
                 c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+                
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "Devgram.Api.xml");
+                c.IncludeXmlComments(filePath);
             });
 
 

@@ -29,9 +29,16 @@ public class UsuarioController : Controller
         _notifiable = notifiable;
         _aspnetUser = aspnetUser;
     }
-
+    
+    /// <summary>
+    /// Responsável por listar todas as publicações de um usuário
+    /// </summary>
+    /// <response code="200">Lista de publicações de um usuário</response>
+    /// <response code="401">Usuário não autenticado</response>
+    /// <response code="500">Erro interno</response>
     [HttpGet("{usuarioId}/publicacao")]
     [ProducesResponseType(typeof(IEnumerable<PublicacaoResponseModel>), 200)]
+    [ProducesResponseType(typeof(UnauthorizedResult), 401)]
     [ProducesResponseType(typeof(object), 500)]
     public async Task<ActionResult> GetAllPublicacoesAsync([FromQuery] PublicacaoFiltroModel model)
     {
@@ -40,8 +47,16 @@ public class UsuarioController : Controller
         return Ok(resultado);
     }
 
+    
+    /// <summary>
+    /// Responsável por buscar uma publicação específica do usuário
+    /// </summary>
+    /// <response code="200">Publicação do usuário</response>
+    /// <response code="401">Usuário não autenticado</response>
+    /// <response code="500">Erro interno</response>
     [HttpGet("{usuarioId}/publicacao/{publicacaoId}")]
     [ProducesResponseType(typeof(IEnumerable<PublicacaoResponseModel>), 200)]
+    [ProducesResponseType(typeof(UnauthorizedResult), 401)]
     [ProducesResponseType(typeof(object), 500)]
     public async Task<ActionResult> GetPublicacaosAsync(Guid usuarioId, Guid publicacaoId)
     {
@@ -49,9 +64,18 @@ public class UsuarioController : Controller
             _mapper.Map<List<PublicacaoResponseModel>>(await _usuarioRepository.GetPublicacaoAsync(publicacaoId));
         return Ok(resultado);
     }
-
+    
+    /// <summary>
+    /// Responsável por inserir uma publicação específica para usuário
+    /// </summary>
+    /// <response code="200">Identificador do usuário</response>
+    /// <response code="400">Conteúdo inválido</response>
+    /// <response code="401">Usuário não autenticado</response>
+    /// <response code="500">Erro interno</response>
     [HttpPost("{usuarioId}/publicacao")]
     [ProducesResponseType(typeof(IEnumerable<PublicacaoResponseModel>), 200)]
+    [ProducesResponseType(typeof(BadRequestResult), 400)]
+    [ProducesResponseType(typeof(UnauthorizedResult), 401)]
     [ProducesResponseType(typeof(object), 500)]
     public async Task<ActionResult> NovaPublicacaoAsync(Guid usuarioId, [FromForm] PublicacaoModel model)
     {
@@ -66,8 +90,17 @@ public class UsuarioController : Controller
         return Ok(resultado);
     }
 
+    /// <summary>
+    /// Responsável por alterar uma publicação específica para usuário
+    /// </summary>
+    /// <response code="200"></response>
+    /// <response code="400">Conteúdo inválido</response>
+    /// <response code="401">Usuário não autenticado</response>
+    /// <response code="500">Erro interno</response>
     [HttpPut("{usuarioId}/publicacao/{publicacaoId}")]
     [ProducesResponseType(typeof(IEnumerable<PublicacaoResponseModel>), 200)]
+    [ProducesResponseType(typeof(BadRequestResult), 400)]
+    [ProducesResponseType(typeof(UnauthorizedResult), 401)]
     [ProducesResponseType(typeof(object), 500)]
     public async Task<ActionResult> AtualizarPublicacaoAsync(Guid usuarioId, Guid publicacaoId,
         [FromForm] PublicacaoModel model)
@@ -83,8 +116,17 @@ public class UsuarioController : Controller
         return Ok();
     }
 
+    /// <summary>
+    /// Responsável por remover uma publicação específica para usuário
+    /// </summary>
+    /// <response code="200"></response>
+    /// <response code="400">Conteúdo inválido</response>
+    /// <response code="401">Usuário não autenticado</response>
+    /// <response code="500">Erro interno</response>
     [HttpDelete("{usuarioId}/publicacao/{publicacaoId}")]
     [ProducesResponseType(typeof(IEnumerable<PublicacaoResponseModel>), 200)]
+    [ProducesResponseType(typeof(BadRequestResult), 400)]
+    [ProducesResponseType(typeof(UnauthorizedResult), 401)]
     [ProducesResponseType(typeof(object), 500)]
     public async Task<ActionResult> RemoverPublicacaoAsync(Guid usuarioId, Guid publicacaoId)
     {
@@ -97,8 +139,17 @@ public class UsuarioController : Controller
     }
     
        
+    /// <summary>
+    /// Responsável por adicionar um comentário em determinada publicação
+    /// </summary>
+    /// <response code="200">Publicação no qual o comentário foi inserido</response>
+    /// <response code="400">Conteúdo inválido</response>
+    /// <response code="401">Usuário não autenticado</response>
+    /// <response code="500">Erro interno</response>
     [HttpPost("{usuarioId}/publicacao/{publicacaoId}/comentario")]
     [ProducesResponseType(typeof(Guid), 200)]
+    [ProducesResponseType(typeof(BadRequestResult), 400)]
+    [ProducesResponseType(typeof(UnauthorizedResult), 401)]
     [ProducesResponseType(typeof(object), 500)]
     public async Task<ActionResult> NovoComentario(Guid usuarioId, Guid publicacaoId, [FromBody] PublicacaoComentarioModel model)
     {
@@ -107,8 +158,17 @@ public class UsuarioController : Controller
         return Ok(resultado);
     }
     
+    /// <summary>
+    /// Responsável por alterar um comentário em determinada publicação
+    /// </summary>
+    /// <response code="200">Publicação no qual o comentário foi inserido</response>
+    /// <response code="400">Conteúdo inválido</response>
+    /// <response code="401">Usuário não autenticado</response>
+    /// <response code="500">Erro interno</response>
     [HttpPut("{usuarioId}/publicacao/{publicacaoId}/comentario/{comentarioId}")]
     [ProducesResponseType(typeof(Guid), 200)]
+    [ProducesResponseType(typeof(BadRequestResult), 400)]
+    [ProducesResponseType(typeof(UnauthorizedResult), 401)]
     [ProducesResponseType(typeof(object), 500)]
     public async Task<ActionResult> AlterarComentario(Guid usuarioId, Guid publicacaoId, Guid comentarioId, [FromBody] PublicacaoComentarioModel model)
     {
@@ -126,6 +186,13 @@ public class UsuarioController : Controller
         return Ok(resultado);
     }
     
+    /// <summary>
+    /// Responsável por remover um comentário em determinada publicação
+    /// </summary>
+    /// <response code="200"></response>
+    /// <response code="400">Conteúdo inválido</response>
+    /// <response code="401">Usuário não autenticado</response>
+    /// <response code="500">Erro interno</response>
     [HttpDelete("{usuarioId}/publicacao/{publicacaoId}/comentario/{comentarioId}")]
     [ProducesResponseType(typeof(bool), 200)]
     [ProducesResponseType(typeof(object), 500)]

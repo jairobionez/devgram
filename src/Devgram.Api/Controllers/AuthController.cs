@@ -41,6 +41,12 @@ public class AuthController : Controller
         _passwordHasher = passwordHasher;
     }
     
+    /// <summary>
+    /// Endpoint para login do usuário
+    /// </summary>
+    /// <response code="200">Jwt token para acesso</response>
+    /// <response code="400">Conteúdo inválido</response>
+    /// <response code="500">Erro interno</response>
     [HttpPost("login")]
     [ProducesResponseType(typeof(IEnumerable<UsuarioLoginResponseModel>), 200)]
     [ProducesResponseType(typeof(string), 400)]
@@ -62,6 +68,12 @@ public class AuthController : Controller
         return BadRequest(new { sucesso = false, message = "E-mail ou senha incorretos" });
     }
     
+    /// <summary>
+    /// Endpoint para registro de uma nova conta
+    /// </summary>
+    /// <response code="200">Jwt token para acesso</response>
+    /// <response code="400">Conteúdo inválido</response>
+    /// <response code="500">Erro interno</response>
     [HttpPost("nova-conta")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> NovaContaAsync(NovaContaViewModel model)
